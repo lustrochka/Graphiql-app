@@ -85,7 +85,7 @@ img {
 body {
   background: var(--bg-purple);
   color: var(--text-dark);
-/*  font-family: 'Open Sans', sans-serif;*/
- /* font-family: 'Roboto', sans-serif;*/
-  font-family: 'Manrope', sans-serif;
+  /*  font-family: 'Open Sans', sans-serif;*/
+  /* font-family: 'Roboto', sans-serif;*/
+  font-family: "Manrope", sans-serif;
 }
