@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface MethodSelectorProps {
   method: string;
@@ -10,7 +10,7 @@ const MethodSelector: React.FC<MethodSelectorProps> = ({
   setMethod,
 }) => (
   <select value={method} onChange={(e) => setMethod(e.target.value)}>
-    {['GET', 'POST', 'PUT', 'DELETE', 'PATCH'].map((method) => (
+    {["GET", "POST", "PUT", "DELETE", "PATCH"].map((method) => (
       <option key={method} value={method}>
         {method}
       </option>
