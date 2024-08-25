@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import styles from "./Header.module.css";
+import { getDictionary, Dictionary } from "../../i18n";
 
 const Header: React.FC = () => {
+  const { locale, push, asPath } = useRouter();
   const [isSticky, setSticky] = useState(false);
-  const [language, setLanguage] = useState("EN");
+  const [dictionary, setDictionary] = useState<Dictionary | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,9 +23,23 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const loadDictionary = async () => {
+      const dict = await getDictionary(locale || "en");
+      setDictionary(dict);
+    };
+
+    loadDictionary();
+  }, [locale]);
+
   const toggleLanguage = () => {
-    setLanguage((prevLanguage) => (prevLanguage === "EN" ? "RU" : "EN"));
+    const newLocale = locale === "en" ? "ru" : "en";
+    push(asPath, asPath, { locale: newLocale });
   };
+
+  if (!dictionary) {
+    return null;
+  }
 
   return (
     <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`}>
@@ -30,7 +47,7 @@ const Header: React.FC = () => {
         <Link href="/" passHref>
           <Image
             src="/images/rss-logo-CM8B7fA7.svg"
-            alt="rss-logo"
+            alt={dictionary.logoAlt}
             width={50}
             height={50}
           />
@@ -38,13 +55,13 @@ const Header: React.FC = () => {
       </div>
       <div className={styles.nav}>
         <button className={styles.langToggle} onClick={toggleLanguage}>
-          {language}
+          {locale === "en" ? "RU" : "EN"}
         </button>
         <Link href="/signin" passHref>
-          <button className={styles.authButton}>Sign In</button>
+          <button className={styles.authButton}>{dictionary.signin}</button>{" "}
         </Link>
         <Link href="/signup" passHref>
-          <button className={styles.authButton}>Sign Up</button>
+          <button className={styles.authButton}>{dictionary.signup}</button>{" "}
         </Link>
       </div>
     </header>
