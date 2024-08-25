@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import styles from "./HeadersEditor.module.css"; // Обновите путь, если необходимо
 
 interface Header {
   key: string;
@@ -26,18 +27,22 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({
   };
 
   return (
-    <div>
-      <button onClick={addHeader}>Add Header</button>
+    <div className={styles.headersEditor}>
+      <button className={styles.addHeaderButton} onClick={addHeader}>
+        Add Header
+      </button>
       {headers.map((header, index) => (
-        <div key={index}>
+        <div className={styles.headerEntry} key={index}>
           <input
             type="text"
+            className={styles.headerInput}
             placeholder="Header Key"
             value={header.key}
             onChange={(e) => updateHeader(index, e.target.value, header.value)}
           />
           <input
             type="text"
+            className={styles.headerInput}
             placeholder="Header Value"
             value={header.value}
             onChange={(e) => updateHeader(index, header.key, e.target.value)}

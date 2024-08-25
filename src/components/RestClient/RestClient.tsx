@@ -1,5 +1,5 @@
-import styles from "./components/page.module.css";
 import React, { useState } from "react";
+import styles from "./components/page.module.css";
 import MethodSelector from "./components/MethodSelector";
 import UrlInput from "./components/UrlInput";
 import HeadersEditor from "./components/HeadersEditor";
@@ -49,15 +49,23 @@ const RestClient: React.FC = () => {
   };
 
   return (
-    <div>
-      <div className={styles.container}>
-        <MethodSelector method={method} setMethod={setMethod} />
-        <UrlInput url={url} setUrl={setUrl} />
-        <HeadersEditor headers={headers} setHeaders={setHeaders} />
-        <BodyEditor body={body} setBody={setBody} />
-        <button onClick={sendRequest}>Send Request</button>
-        <ResponseSection statusCode={statusCode} responseBody={responseBody} />
+    <div className={styles.container}>
+      <div className={styles.apiRequestConfig}>
+        <div className={`${styles.methodSelector} ${styles.inputContainer}`}>
+          <label htmlFor="method">Method:</label>
+          <MethodSelector method={method} setMethod={setMethod} />
+        </div>
+        <div className={`${styles.urlInput} ${styles.inputContainer}`}>
+          <label htmlFor="url">URL:</label>
+          <UrlInput url={url} setUrl={setUrl} />
+        </div>
       </div>
+      <HeadersEditor headers={headers} setHeaders={setHeaders} />
+      <BodyEditor body={body} setBody={setBody} />
+      <button className={styles.sendRequestButton} onClick={sendRequest}>
+        Send Request
+      </button>
+      <ResponseSection statusCode={statusCode} responseBody={responseBody} />
     </div>
   );
 };
