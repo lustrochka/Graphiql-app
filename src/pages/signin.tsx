@@ -1,9 +1,7 @@
+import SignInForm from "../components/Auth/SignInForm";
+
 const SignInPage: React.FC = () => {
-  return (
-    <main>
-      <h1>Sign In</h1>
-    </main>
-  );
+  return <SignInForm />;
 };
 
 export default SignInPage;

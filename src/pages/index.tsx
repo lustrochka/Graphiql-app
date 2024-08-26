@@ -1,11 +1,12 @@
 import Link from "next/link";
+import styles from "../components/WelcomePage/WelcomePage.module.css";
 
 const WelcomePage: React.FC = () => {
   return (
-    <main>
-      <h1>Welcome</h1>
+    <main className={styles.welcomePage}>
+      <h1>Welcome!</h1>
       <nav>
-        <ul>
+        <ul className={styles.primaryLinks}>
           <li>
             <Link href="/signin">Sign In</Link>
           </li>
@@ -13,15 +14,15 @@ const WelcomePage: React.FC = () => {
             <Link href="/signup">Sign Up</Link>
           </li>
         </ul>
-        <ul>
-          <li>
-            <Link href="/history">History</Link>
-          </li>
+        <ul className={styles.secondaryLinks}>
           <li>
             <Link href="/restclient">REST Client</Link>
           </li>
           <li>
-            <Link href="/graphiql">GraphiQL</Link>
+            <Link href="/graphiql">GraphiQL Client </Link>
+          </li>
+          <li>
+            <Link href="/history">History</Link>
           </li>
         </ul>
       </nav>

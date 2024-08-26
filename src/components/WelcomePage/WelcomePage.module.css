@@ -1,0 +1,81 @@
+.welcomePage {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--sp-md);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--br-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.welcomePage h1 {
+  margin-bottom: var(--sp-md);
+}
+
+.welcomePage nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.welcomePage nav ul li {
+  margin-bottom: var(--sp-sm);
+}
+
+
+.welcomePage .primaryLinks {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-md);
+}
+
+.welcomePage .primaryLinks li a {
+  display: inline-block;
+  padding: var(--sp-sm) var(--sp-md);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--br-md);
+  background-color: var(--blue);
+  color: var(--text-dark);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+}
+
+.welcomePage .primaryLinks li a:hover {
+  background-color: var(--yellow);
+}
+
+.welcomePage .links {
+  display: flex;
+  justify-content: space-around;
+  margin-top: var(--sp-md);
+}
+
+.welcomePage .secondaryLinks {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-md);
+  margin-top: var(--sp-md);
+}
+
+.welcomePage .secondaryLinks li {
+  flex: 1;
+}
+
+.welcomePage .secondaryLinks li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: var(--sp-md);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--br-md);
+  background-color: var(--light-grey);
+  color: var(--text-dark);
+  font-weight: var(--fw-normal);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcomePage .secondaryLinks li a:hover {
+  background-color: var(--yellow);
+}
