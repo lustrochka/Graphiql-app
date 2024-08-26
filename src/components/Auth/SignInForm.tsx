@@ -3,7 +3,6 @@ import { validationSchema } from "../../utils/validationSchema";
 import styles from "./AuthForm.module.css";
 
 const SignIn: React.FC = () => {
-
   return (
     <div className={styles.authForm}>
       <h1>Sign In</h1>
@@ -19,12 +18,20 @@ const SignIn: React.FC = () => {
           <div>
             <label htmlFor="email">Email</label>
             <Field name="email" type="email" />
-            <ErrorMessage name="email" component="div" className={styles.errorMessage} />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className={styles.errorMessage}
+            />
           </div>
           <div>
             <label htmlFor="password">Password</label>
             <Field name="password" type="password" />
-            <ErrorMessage name="password" component="div" className={styles.errorMessage} />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className={styles.errorMessage}
+            />
           </div>
           <button type="submit">Sign In</button>
         </Form>

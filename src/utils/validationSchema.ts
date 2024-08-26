@@ -6,6 +6,9 @@ export const validationSchema = Yup.object({
     .min(8, "Password must be at least 8 characters")
     .matches(/[a-zA-Z]/, "Password must contain at least one letter")
     .matches(/[0-9]/, "Password must contain at least one digit")
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
+    .matches(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      "Password must contain at least one special character",
+    )
     .required("Required"),
 });
