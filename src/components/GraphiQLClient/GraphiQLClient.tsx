@@ -18,6 +18,41 @@ const GraphQLClient: React.FC = () => {
   const [query, setQuery] = useState(DEFAULT_BODY);
   const [variables, setVariables] = useState(DEFAULT_VARIABLES);
   const [headers, setHeaders] = useState("");
+  const [response, setResponse] = useState("");
+
+  const fetchData = async ({ url, query, variables, headers }) => {
+    let parsedVars;
+    let parsedHeaders;
+    try {
+      parsedVars = JSON.parse(variables || "{}");
+      parsedHeaders = JSON.parse(headers || "{}");
+    } catch {
+      return setResponse("Variables and headers should be in JSON format");
+    }
+    try {
+      const result = await axios.post(
+        url,
+        {
+          query,
+          variables: parsedVars,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...parsedHeaders,
+          },
+        },
+      );
+
+      if (result.data.errors) {
+        setResponse(JSON.stringify(result.data.errors[0].message));
+      } else {
+        setResponse(JSON.stringify(result.data));
+      }
+    } catch (error) {
+      setResponse(error);
+    }
+  };
 
   return (
     <div className={styles.graphql}>
@@ -47,28 +82,11 @@ const GraphQLClient: React.FC = () => {
         value={headers}
         onChange={(e) => setHeaders(e.target.value)}
       ></textarea>
+      <textarea id="response" readOnly value={response}></textarea>
       <button onClick={() => fetchData({ url, query, variables, headers })}>
         Send
       </button>
     </div>
-  );
-};
-
-const fetchData = async ({ url, query, variables, headers }) => {
-  const parsedVars = JSON.parse(variables || "{}");
-  const parsedHeaders = JSON.parse(headers || "{}");
-  const response = await axios.post(
-    url,
-    {
-      query,
-      variables: parsedVars,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        ...parsedHeaders,
-      },
-    },
   );
 };
 
