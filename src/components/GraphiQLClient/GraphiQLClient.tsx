@@ -13,9 +13,11 @@ const GraphQLClient: React.FC = () => {
     }
     `;
   const DEFAULT_VARIABLES = `{"id": 1}`;
+
   const [url, setUrl] = useState(DEFAULT_URL);
-  const [body, setBody] = useState(DEFAULT_BODY);
+  const [query, setQuery] = useState(DEFAULT_BODY);
   const [variables, setVariables] = useState(DEFAULT_VARIABLES);
+  const [headers, setHeaders] = useState("");
 
   return (
     <div className={styles.graphql}>
@@ -29,10 +31,10 @@ const GraphQLClient: React.FC = () => {
       <label htmlFor="body">request</label>
       <textarea
         id="body"
-        value={body}
+        value={query}
         rows={10}
         cols={33}
-        onChange={(e) => setBody(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
       ></textarea>
       <label htmlFor="variables">variables</label>
       <textarea
@@ -40,13 +42,21 @@ const GraphQLClient: React.FC = () => {
         value={variables}
         onChange={(e) => setVariables(e.target.value)}
       ></textarea>
-      <button onClick={() => fetchData(url, body, variables)}>Send</button>
+      <textarea
+        id="headers"
+        value={headers}
+        onChange={(e) => setHeaders(e.target.value)}
+      ></textarea>
+      <button onClick={() => fetchData({ url, query, variables, headers })}>
+        Send
+      </button>
     </div>
   );
 };
 
-const fetchData = async (url, query, variables) => {
+const fetchData = async ({ url, query, variables, headers }) => {
   const parsedVars = JSON.parse(variables || "{}");
+  const parsedHeaders = JSON.parse(headers || "{}");
   const response = await axios.post(
     url,
     {
@@ -56,6 +66,7 @@ const fetchData = async (url, query, variables) => {
     {
       headers: {
         "Content-Type": "application/json",
+        ...parsedHeaders,
       },
     },
   );
