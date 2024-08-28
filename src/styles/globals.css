@@ -1,0 +1,91 @@
+:root {
+  /* Font Sizes */
+  --fs-sm: 0.875rem; /* 14px*/
+  --fs-md: 1rem; /* 16px*/
+  --fs-lg: 1.25rem; /* 20px*/
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-bold: 700;
+
+  /* Colors */
+  --bg-purple: #c3bef0;
+  --light-grey: #e8e9e9;
+  --blue: #cadefc;
+  --yellow: #fcfcd4;
+  --text-dark: #65676e;
+  --error-red: #ff7b9a;
+
+  /* Spacing */
+  --sp-sm: 0.5rem; /* 8px*/
+  --sp-md: 1rem; /* 16px*/
+  --sp-lg: 1.5rem; /* 24px*/
+
+  /* Border Radius */
+  --br-md: 0.75rem; /* 12px*/
+  --br-lg: 6.25rem; /* 100px*/
+  --br-full: 50%; /*for full round edges */
+
+  /* Z-Index */
+  --z-low: 10;
+  --z-med: 100;
+  --z-high: 1000;
+}
+
+/*CSS Reset */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*Base css*/
+
+body {
+  background: var(--bg-purple);
+  color: var(--text-dark);
+  /*  font-family: 'Open Sans', sans-serif;*/
+  /* font-family: 'Roboto', sans-serif;*/
+  font-family: "Manrope", sans-serif;
+}

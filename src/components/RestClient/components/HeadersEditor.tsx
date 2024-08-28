@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./HeadersEditor.module.css"; // Обновите путь, если необходимо
+import styles from "./HeadersEditor.module.css";
 
-interface Header {
+export interface Header {
   key: string;
   value: string;
 }

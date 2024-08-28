@@ -2,19 +2,48 @@ import React, { useState } from "react";
 import styles from "./components/page.module.css";
 import MethodSelector from "./components/MethodSelector";
 import UrlInput from "./components/UrlInput";
-import HeadersEditor from "./components/HeadersEditor";
+import HeadersEditor, { Header } from "./components/HeadersEditor";
 import BodyEditor from "./components/BodyEditor";
 import ResponseSection from "./components/ResponseSection";
+
+const isValidUrl = (url: string): boolean => {
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+const isValidHeader = (header: Header): boolean => {
+  return header.key.trim() !== "" && !/\s/.test(header.key);
+};
 
 const RestClient: React.FC = () => {
   const [method, setMethod] = useState<string>("GET");
   const [url, setUrl] = useState<string>("");
-  const [headers, setHeaders] = useState<{ key: string; value: string }[]>([]);
+  const [headers, setHeaders] = useState<Header[]>([]);
   const [body, setBody] = useState<string>("");
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [responseBody, setResponseBody] = useState<string>("");
 
   const sendRequest = async () => {
+    if (!isValidUrl(url)) {
+      setStatusCode(400);
+      setResponseBody("Invalid URL. Please enter a valid HTTP or HTTPS URL.");
+      return;
+    }
+
+    for (const header of headers) {
+      if (!isValidHeader(header)) {
+        setStatusCode(400);
+        setResponseBody(
+          `Invalid header key "${header.key}". Header keys should not be empty or contain spaces.`,
+        );
+        return;
+      }
+    }
+
     try {
       const options: RequestInit = {
         method,
@@ -44,7 +73,9 @@ const RestClient: React.FC = () => {
       }
     } catch (error) {
       setStatusCode(500);
-      setResponseBody(`Error: ${error.message}`);
+      setResponseBody(
+        `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
     }
   };
 
