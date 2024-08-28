@@ -1,22 +1,17 @@
 import React from "react";
 import styles from "./ResponseSection.module.css";
+import { useRestClient } from "../RestClientContext";
 
-interface ResponseSectionProps {
-  statusCode: number | null;
-  responseBody: string;
-}
+const ResponseSection: React.FC = () => {
+  const { statusCode, responseBody } = useRestClient();
 
-const ResponseSection: React.FC<ResponseSectionProps> = ({
-  statusCode,
-  responseBody,
-}) => {
   return (
     <div className={styles.response_section}>
       <div className={styles.response_status}>
-        Status: {statusCode !== null ? statusCode : ""}
+        Status: {statusCode !== null ? statusCode : "No status"}
       </div>
       <div className={styles.response_body}>
-        <pre>{responseBody}</pre>
+        <pre>{responseBody ? responseBody : "No response body"}</pre>
       </div>
     </div>
   );
