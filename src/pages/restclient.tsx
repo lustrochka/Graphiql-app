@@ -1,10 +1,10 @@
-import RestClient from "../components/RestClient/RestClient";
+import RestClientUI from "../components/RestClient/RestClientUI";
 
 const RestClientPage: React.FC = () => {
   return (
     <main>
       <h1>REST Client</h1>
-      <RestClient />
+      <RestClientUI />
     </main>
   );
 };
