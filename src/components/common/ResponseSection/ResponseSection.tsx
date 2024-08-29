@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ResponseSection.module.css";
-import { useRestClient } from "../RestClientContext";
+import { useRestClient } from "../../RestClient/RestClientContext";
 
 const ResponseSection: React.FC = () => {
   const { statusCode, responseBody } = useRestClient();

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RestClientUI.module.css";
-import MethodSelector from "./components/MethodSelector";
-import UrlInput from "./components/UrlInput";
-import HeadersEditor from "./components/HeadersEditor";
-import BodyEditor from "./components/BodyEditor";
-import ResponseSection from "./components/ResponseSection";
+import MethodSelector from "../common/MethodSelector/MethodSelector";
+import UrlInput from "../common/UrlInput/UrlInput";
+import HeadersEditor from "../common/HeadersEditor/HeadersEditor";
+import BodyEditor from "../common/BodyEditor/BodyEditor";
+import ResponseSection from "../common/ResponseSection/ResponseSection";
 import { RestClientProvider, useRestClient } from "./RestClientContext";
 
 const RestClientUI: React.FC = () => {

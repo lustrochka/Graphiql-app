@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { Header } from "./components/HeadersEditor";
+import { Header } from "../common/HeadersEditor";
 import useHttpRequest from "./useHttpRequest";
 
 interface RestClientContextType {

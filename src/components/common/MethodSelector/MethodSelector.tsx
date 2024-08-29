@@ -1,5 +1,5 @@
 import React from "react";
-import { useRestClient } from "../RestClientContext";
+import { useRestClient } from "../../RestClient/RestClientContext";
 
 const MethodSelector: React.FC = () => {
   const { method, setMethod } = useRestClient();

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./HeadersEditor.module.css";
-import { useRestClient } from "../RestClientContext";
+import { useRestClient } from "../../RestClient/RestClientContext";
 
 const HeadersEditor: React.FC = () => {
   const { headers, setHeaders } = useRestClient();

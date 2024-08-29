@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header } from "./components/HeadersEditor";
+import { Header } from "../common/HeadersEditor";
 
 interface UseHttpRequestResult {
   statusCode: number | null;
