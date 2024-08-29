@@ -15,7 +15,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyA5dQUSV2Cd3IT1vyq8Bf7JjSM1sbsP2Ho",
   authDomain: "graphiql-app-rss-24.firebaseapp.com",
@@ -25,10 +24,9 @@ const firebaseConfig = {
   appId: "1:890078368816:web:a3e7ec8037cc86bc4ac9f5",
 };
 
-const app = ​​initializeApp(firebaseConfig);
-​​const auth = getAuth(app);
-​​const db = getFirestore(app);
-
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
@@ -39,7 +37,11 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
   }
 };
 
-const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
+const registerWithEmailAndPassword = async (
+  name: string,
+  email: string,
+  password: string,
+) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
