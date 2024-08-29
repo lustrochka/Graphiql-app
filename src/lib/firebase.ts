@@ -6,8 +6,7 @@ const firebaseConfig = {
   projectId: "graphiql-app-rss-24",
   storageBucket: "graphiql-app-rss-24.appspot.com",
   messagingSenderId: "890078368816",
-  appId: "1:890078368816:web:a3e7ec8037cc86bc4ac9f5"
+  appId: "1:890078368816:web:a3e7ec8037cc86bc4ac9f5",
 };
-
 
 const app = initializeApp(firebaseConfig);
