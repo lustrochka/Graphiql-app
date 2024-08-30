@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header } from "../common/HeadersEditor";
+import { Header } from "../common/HeadersEditor/HeadersEditor";
 
 interface UseHttpRequestResult {
   statusCode: number | null;
@@ -9,7 +9,7 @@ interface UseHttpRequestResult {
     url: string,
     headers: Header[],
     body: string,
-  ) => Promise<void>;
+  ) => Promise<{ statusCode: number | null; responseBody: string }>;
 }
 
 const useHttpRequest = (): UseHttpRequestResult => {
@@ -38,7 +38,7 @@ const useHttpRequest = (): UseHttpRequestResult => {
     url: string,
     headers: Header[],
     body: string,
-  ) => {
+  ): Promise<{ statusCode: number | null; responseBody: string }> => {
     console.group("HTTP Request");
     console.log("%cStarting request...", "color: green; font-weight: bold;");
 
@@ -51,7 +51,7 @@ const useHttpRequest = (): UseHttpRequestResult => {
       setStatusCode(400);
       setResponseBody("Invalid URL. Please enter a valid HTTP or HTTPS URL.");
       console.groupEnd();
-      return;
+      return { statusCode: 400, responseBody: "Invalid URL" };
     }
     console.log("%cURL is valid.", "color: green;");
 
@@ -68,7 +68,7 @@ const useHttpRequest = (): UseHttpRequestResult => {
           `Invalid header key "${header.key}". Header keys should not be empty or contain spaces.`,
         );
         console.groupEnd();
-        return;
+        return { statusCode: 400, responseBody: `Invalid header` };
       }
     }
     console.log("%cHeaders are valid.", "color: green;");
@@ -98,6 +98,7 @@ const useHttpRequest = (): UseHttpRequestResult => {
         "color: green;",
       );
       setStatusCode(response.status);
+      setResponseBody(text);
 
       let formattedResponseBody = "";
       try {
@@ -114,8 +115,14 @@ const useHttpRequest = (): UseHttpRequestResult => {
           "color: orange;",
         );
       }
+
       setResponseBody(formattedResponseBody);
       console.log("%cResponse Body:", "color: blue;", formattedResponseBody);
+
+      return {
+        statusCode: response.status,
+        responseBody: formattedResponseBody,
+      };
     } catch (error) {
       const errorMessage = `Error: ${
         error instanceof Error ? error.message : "Unknown error"
@@ -127,9 +134,11 @@ const useHttpRequest = (): UseHttpRequestResult => {
         "color: red; font-weight: bold;",
         errorMessage,
       );
-    }
 
-    console.groupEnd();
+      return { statusCode: 500, responseBody: errorMessage };
+    } finally {
+      console.groupEnd();
+    }
   };
 
   return { statusCode, responseBody, sendRequest };
