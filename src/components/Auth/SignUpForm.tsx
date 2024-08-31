@@ -2,10 +2,19 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { validationSchema } from "../../utils/validationSchema";
 import { useRouter } from "next/router";
 import { handleSubmit } from "./handleSubmit";
+import { useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
 import styles from "./AuthForm.module.css";
 
 const SignUpForm: React.FC = () => {
   const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <div className={styles.authForm}>

@@ -3,10 +3,19 @@ import { validationSchema } from "../../utils/validationSchema";
 import { logInWithEmailAndPassword } from "../../lib/firebase";
 import { useRouter } from "next/router";
 import { handleSubmit } from "./handleSubmit";
+import useAuth from "../../hooks/useAuth";
+import { useEffect } from "react";
 import styles from "./AuthForm.module.css";
 
 const SignInForm: React.FC = () => {
   const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <div className={styles.authForm}>
