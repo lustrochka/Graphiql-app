@@ -6,7 +6,6 @@ import { doc, getDoc } from "firebase/firestore";
 import styles from "../components/WelcomePage/WelcomePage.module.css";
 
 interface UserData {
-  name: string;
   email: string;
 }
 
