@@ -1,14 +1,24 @@
 import React from "react";
-import { useRestClient } from "../../RestClient/RestClientContext";
+import styles from "./MethodSelector.module.css";
 
-const MethodSelector: React.FC = () => {
-  const { method, setMethod } = useRestClient();
+interface MethodSelectorProps {
+  method: string;
+  setMethod: (method: string) => void;
+}
 
+const MethodSelector: React.FC<MethodSelectorProps> = ({
+  method,
+  setMethod,
+}) => {
   return (
-    <select value={method} onChange={(e) => setMethod(e.target.value)}>
-      {["GET", "POST", "PUT", "DELETE", "PATCH"].map((method) => (
-        <option key={method} value={method}>
-          {method}
+    <select
+      value={method}
+      onChange={(e) => setMethod(e.target.value)}
+      className={styles.methodSelector}
+    >
+      {["GET", "POST", "PUT", "DELETE", "PATCH"].map((methodOption) => (
+        <option key={methodOption} value={methodOption}>
+          {methodOption}
         </option>
       ))}
     </select>

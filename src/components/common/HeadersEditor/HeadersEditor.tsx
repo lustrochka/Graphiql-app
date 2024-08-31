@@ -1,13 +1,21 @@
 import React from "react";
 import styles from "./HeadersEditor.module.css";
-import { useRestClient } from "../../RestClient/RestClientContext";
 
-const HeadersEditor: React.FC = () => {
-  const { headers, setHeaders } = useRestClient();
+export interface Header {
+  key: string;
+  value: string;
+}
 
-  const addHeader = () => {
-    setHeaders([...headers, { key: "", value: "" }]);
-  };
+interface HeadersEditorProps {
+  headers: Header[];
+  setHeaders: (headers: Header[]) => void;
+}
+
+const HeadersEditor: React.FC<HeadersEditorProps> = ({
+  headers,
+  setHeaders,
+}) => {
+  const addHeader = () => setHeaders([...headers, { key: "", value: "" }]);
 
   const updateHeader = (index: number, key: string, value: string) => {
     const updatedHeaders = headers.map((header, i) =>

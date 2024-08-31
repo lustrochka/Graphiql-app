@@ -1,80 +1,93 @@
-import React, { useEffect, useState } from "react";
-import styles from "./RestClientUI.module.css";
+import React, { useState, useEffect } from "react";
 import MethodSelector from "../common/MethodSelector/MethodSelector";
 import UrlInput from "../common/UrlInput/UrlInput";
-import HeadersEditor from "../common/HeadersEditor/HeadersEditor";
+import HeadersEditor, { Header } from "../common/HeadersEditor/HeadersEditor";
 import BodyEditor from "../common/BodyEditor/BodyEditor";
 import ResponseSection from "../common/ResponseSection/ResponseSection";
-import { RestClientProvider, useRestClient } from "./RestClientContext";
+import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
+import useHttpRequest from "./useHttpRequest";
+import { encodeBase64 } from "../../utils/encodeBase64";
+import styles from "./RestClientUI.module.css";
+import { useRouter } from "next/router";
 
-interface RestClientUIProps {
-  initialMethod: string;
-  initialUrl: string;
-  initialBody?: string | null;
-  initialHeaders?: Record<string, string>;
-}
+const RestClientUI: React.FC = () => {
+  const [method, setMethod] = useState<string>("GET");
+  const [url, setUrl] = useState<string>("");
+  const [headers, setHeaders] = useState<Header[]>([]);
+  const [body, setBody] = useState<string>("");
+  const { statusCode, responseBody, sendRequest } = useHttpRequest();
+  const router = useRouter();
 
-const RestClientUI: React.FC<RestClientUIProps> = ({
-  initialMethod,
-  initialUrl,
-  initialBody,
-  initialHeaders,
-}) => {
-  const [isClient, setIsClient] = useState(false);
-  const [url, setUrl] = useState(initialUrl);
+  const isMethodWithBody = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
 
   useEffect(() => {
-    setIsClient(true);
+    window.history.replaceState(null, "", "/");
   }, []);
 
-  useEffect(() => {
-    if (!initialUrl) {
-      setUrl(""); // Если initialUrl отсутствует, поле ввода очищается
+  const handleSendRequest = async () => {
+    if (!url) {
+      console.log("URL пустой, запрос не будет отправлен");
+      return;
     }
-  }, [initialUrl]);
 
-  if (!isClient) {
-    return null;
-  }
+    if (
+      isMethodWithBody &&
+      !headers.some((header) => header.key.toLowerCase() === "content-type")
+    ) {
+      setHeaders([
+        ...headers,
+        { key: "Content-Type", value: "application/json" },
+      ]);
+    }
 
-  return (
-    <RestClientProvider
-      initialMethod={initialMethod}
-      initialUrl={url}
-      initialBody={initialBody}
-      initialHeaders={initialHeaders}
-    >
-      <RestClientContent />
-    </RestClientProvider>
-  );
-};
+    const encodedUrl = encodeBase64(url);
 
-const RestClientContent: React.FC = () => {
-  const { sendRequest } = useRestClient();
+    const encodedBody = body && isMethodWithBody ? encodeBase64(body) : "";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await sendRequest(); // Отправляем запрос и ждем ответа
+    const headersQueryParams = headers
+      .filter((header) => header.key && header.value)
+      .map(
+        (header) =>
+          `${encodeURIComponent(header.key)}=${encodeURIComponent(header.value)}`,
+      )
+      .join("&");
+
+    const requestUrl = `/${method}/${encodedUrl}${encodedBody ? `/${encodedBody}` : ""}${
+      headersQueryParams ? `?${headersQueryParams}` : ""
+    }`;
+
+    console.log("Generated URL for request:", requestUrl);
+
+    window.history.replaceState(null, "", requestUrl);
+
+    console.log("Starting sendRequest with:", { method, url, headers, body });
+    await sendRequest(method, url, headers, body);
+    console.log("Request finished with statusCode:", statusCode);
+    console.log("Request finished with responseBody:", responseBody);
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.container}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSendRequest();
+      }}
+      className={styles.container}
+    >
       <div className={styles.apiRequestConfig}>
         <div className={`${styles.methodSelector} ${styles.inputContainer}`}>
           <label htmlFor="method">Method:</label>
-          <MethodSelector />
+          <MethodSelector method={method} setMethod={setMethod} />
         </div>
         <div className={`${styles.urlInput} ${styles.inputContainer}`}>
           <label htmlFor="url">URL:</label>
-          <UrlInput />
+          <UrlInput url={url} setUrl={setUrl} />
         </div>
       </div>
-      <HeadersEditor />
-      <BodyEditor />
-      <button type="submit" className={styles.sendRequestButton}>
-        Send Request
-      </button>
-      <ResponseSection />
+      <HeadersEditor headers={headers} setHeaders={setHeaders} />
+      {isMethodWithBody && <BodyEditor body={body} setBody={setBody} />}
+      <SendRequestButton onClick={handleSendRequest} />
+      <ResponseSection statusCode={statusCode} responseBody={responseBody} />
     </form>
   );
 };
