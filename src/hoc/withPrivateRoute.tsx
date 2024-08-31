@@ -9,7 +9,7 @@ const withPrivateRoute = (WrappedComponent) => {
 
     useEffect(() => {
       if (!loading && !user) {
-        router.push("/signin");
+        router.push("/");
       }
     }, [user, loading]);
 
