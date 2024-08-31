@@ -31,7 +31,6 @@ const WelcomePage: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-
   return (
     <main className={styles.welcomePage}>
       <h1>{user ? `Welcome Back!` : "Welcome!"}</h1>
@@ -71,4 +70,3 @@ const WelcomePage: React.FC = () => {
 };
 
 export default WelcomePage;
-

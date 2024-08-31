@@ -2,7 +2,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { validationSchema } from "../../utils/validationSchema";
 import { logInWithEmailAndPassword } from "../../lib/firebase";
 import { useRouter } from "next/router";
-import { handleSubmit } from "./handleSubmit"
+import { handleSubmit } from "./handleSubmit";
 import styles from "./AuthForm.module.css";
 
 const SignInForm: React.FC = () => {
@@ -14,9 +14,11 @@ const SignInForm: React.FC = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-         onSubmit={(values, actions) => handleSubmit(values, actions, router, false)}
+        onSubmit={(values, actions) =>
+          handleSubmit(values, actions, router, false)
+        }
       >
-                {({ isSubmitting }) => (
+        {({ isSubmitting }) => (
           <Form>
             <div>
               <label htmlFor="email">Email</label>
@@ -36,7 +38,9 @@ const SignInForm: React.FC = () => {
                 className={styles.errorMessage}
               />
             </div>
-            <button type="submit" disabled={isSubmitting}>Sign In</button>
+            <button type="submit" disabled={isSubmitting}>
+              Sign In
+            </button>
           </Form>
         )}
       </Formik>

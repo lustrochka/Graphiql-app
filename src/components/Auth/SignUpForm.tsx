@@ -11,9 +11,11 @@ const SignUpForm: React.FC = () => {
     <div className={styles.authForm}>
       <h1>Sign Up</h1>
       <Formik
-        initialValues={{email: "", password: "" }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => handleSubmit(values, actions, router, true)}
+        onSubmit={(values, actions) =>
+          handleSubmit(values, actions, router, true)
+        }
       >
         {({ isSubmitting }) => (
           <Form>
@@ -35,7 +37,9 @@ const SignUpForm: React.FC = () => {
                 className={styles.errorMessage}
               />
             </div>
-            <button type="submit" disabled={isSubmitting}>Sign Up</button>
+            <button type="submit" disabled={isSubmitting}>
+              Sign Up
+            </button>
           </Form>
         )}
       </Formik>
@@ -44,4 +48,3 @@ const SignUpForm: React.FC = () => {
 };
 
 export default SignUpForm;
-
