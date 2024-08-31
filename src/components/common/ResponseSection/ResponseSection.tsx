@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ResponseSection.module.css";
 import { useRestClient } from "../../RestClient/RestClientContext";
 
 const ResponseSection: React.FC = () => {
   const { statusCode, responseBody } = useRestClient();
+
+  useEffect(() => {
+    console.log("ResponseSection received statusCode:", statusCode);
+    console.log("ResponseSection received responseBody:", responseBody);
+  }, [statusCode, responseBody]);
 
   return (
     <div className={styles.response_section}>

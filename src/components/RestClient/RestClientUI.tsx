@@ -7,19 +7,43 @@ import BodyEditor from "../common/BodyEditor/BodyEditor";
 import ResponseSection from "../common/ResponseSection/ResponseSection";
 import { RestClientProvider, useRestClient } from "./RestClientContext";
 
-const RestClientUI: React.FC = () => {
+interface RestClientUIProps {
+  initialMethod: string;
+  initialUrl: string;
+  initialBody?: string | null;
+  initialHeaders?: Record<string, string>;
+}
+
+const RestClientUI: React.FC<RestClientUIProps> = ({
+  initialMethod,
+  initialUrl,
+  initialBody,
+  initialHeaders,
+}) => {
   const [isClient, setIsClient] = useState(false);
+  const [url, setUrl] = useState(initialUrl);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (!initialUrl) {
+      setUrl(""); // Если initialUrl отсутствует, поле ввода очищается
+    }
+  }, [initialUrl]);
 
   if (!isClient) {
     return null;
   }
 
   return (
-    <RestClientProvider>
+    <RestClientProvider
+      initialMethod={initialMethod}
+      initialUrl={url}
+      initialBody={initialBody}
+      initialHeaders={initialHeaders}
+    >
       <RestClientContent />
     </RestClientProvider>
   );
@@ -28,8 +52,13 @@ const RestClientUI: React.FC = () => {
 const RestClientContent: React.FC = () => {
   const { sendRequest } = useRestClient();
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await sendRequest(); // Отправляем запрос и ждем ответа
+  };
+
   return (
-    <div className={styles.container}>
+    <form onSubmit={handleSubmit} className={styles.container}>
       <div className={styles.apiRequestConfig}>
         <div className={`${styles.methodSelector} ${styles.inputContainer}`}>
           <label htmlFor="method">Method:</label>
@@ -42,11 +71,11 @@ const RestClientContent: React.FC = () => {
       </div>
       <HeadersEditor />
       <BodyEditor />
-      <button className={styles.sendRequestButton} onClick={sendRequest}>
+      <button type="submit" className={styles.sendRequestButton}>
         Send Request
       </button>
       <ResponseSection />
-    </div>
+    </form>
   );
 };
 
