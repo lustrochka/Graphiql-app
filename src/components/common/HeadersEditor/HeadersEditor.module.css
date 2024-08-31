@@ -1,0 +1,57 @@
+.headersEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.addHeaderButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #cadefc;
+  color: #65676e;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  align-self: flex-start;
+}
+
+.addHeaderButton:hover {
+  background-color: #fcfcd4;
+  transform: translateY(-2px);
+}
+
+.addHeaderButton:active {
+  transform: translateY(0);
+}
+
+.addHeaderButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
+}
+
+.addHeaderButton:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+.headerEntry {
+  display: flex;
+  gap: 1rem;
+}
+
+.headerInput {
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  flex: 1;
+}
