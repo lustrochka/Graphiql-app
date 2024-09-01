@@ -5,6 +5,12 @@ const useHttpRequest = () => {
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [responseBody, setResponseBody] = useState<string>("");
 
+  const clearResponse = () => {
+    setStatusCode(null);
+    setResponseBody("");
+    console.log("Response cleared");
+  };
+
   const isValidUrl = (url: string): boolean => {
     try {
       const parsedUrl = new URL(url);
@@ -113,7 +119,7 @@ const useHttpRequest = () => {
     }
   };
 
-  return { statusCode, responseBody, sendRequest };
+  return { statusCode, responseBody, sendRequest, clearResponse };
 };
 
 export default useHttpRequest;

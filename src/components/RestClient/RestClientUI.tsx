@@ -1,34 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import MethodSelector from "../common/MethodSelector/MethodSelector";
 import UrlInput from "../common/UrlInput/UrlInput";
-import HeadersEditor, { Header } from "../common/HeadersEditor/HeadersEditor";
+import HeadersEditor from "../common/HeadersEditor/HeadersEditor";
+import VariablesEditor from "../common/VariablesEditor/VariablesEditor";
 import BodyEditor from "../common/BodyEditor/BodyEditor";
 import ResponseSection from "../common/ResponseSection/ResponseSection";
 import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
 import useHttpRequest from "./useHttpRequest";
-import { encodeBase64 } from "../../utils/encodeBase64";
+import useRequestState from "./useRequestState";
 import styles from "./RestClientUI.module.css";
-import { useRouter } from "next/router";
 
 const RestClientUI: React.FC = () => {
-  const [method, setMethod] = useState<string>("GET");
-  const [url, setUrl] = useState<string>("");
-  const [headers, setHeaders] = useState<Header[]>([]);
-  const [body, setBody] = useState<string>("");
-  const { statusCode, responseBody, sendRequest } = useHttpRequest();
-  const router = useRouter();
+  const {
+    method,
+    setMethod,
+    url,
+    setUrl,
+    headers,
+    setHeaders,
+    variables,
+    setVariables,
+    body,
+    setBody,
+    isMethodWithBody,
+  } = useRequestState();
 
-  const isMethodWithBody = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
+  const { statusCode, responseBody, sendRequest, clearResponse } =
+    useHttpRequest();
 
   useEffect(() => {
-    window.history.replaceState(null, "", "/");
-  }, []);
+    console.log("Method changed, clearing response");
+    clearResponse();
+  }, [method]);
 
   const handleSendRequest = async () => {
     if (!url) {
       console.log("URL пустой, запрос не будет отправлен");
       return;
     }
+
+    const requestBody = isMethodWithBody
+      ? JSON.stringify(
+          variables.reduce(
+            (acc, variable) => {
+              acc[variable.key] = variable.value;
+              return acc;
+            },
+            {} as Record<string, string>,
+          ),
+        )
+      : body;
 
     if (
       isMethodWithBody &&
@@ -40,28 +61,13 @@ const RestClientUI: React.FC = () => {
       ]);
     }
 
-    const encodedUrl = encodeBase64(url);
+    console.log("Sending request with the following data:");
+    console.log("Method:", method);
+    console.log("URL:", url);
+    console.log("Headers:", headers);
+    console.log("Request Body:", requestBody);
 
-    const encodedBody = body && isMethodWithBody ? encodeBase64(body) : "";
-
-    const headersQueryParams = headers
-      .filter((header) => header.key && header.value)
-      .map(
-        (header) =>
-          `${encodeURIComponent(header.key)}=${encodeURIComponent(header.value)}`,
-      )
-      .join("&");
-
-    const requestUrl = `/${method}/${encodedUrl}${encodedBody ? `/${encodedBody}` : ""}${
-      headersQueryParams ? `?${headersQueryParams}` : ""
-    }`;
-
-    console.log("Generated URL for request:", requestUrl);
-
-    window.history.replaceState(null, "", requestUrl);
-
-    console.log("Starting sendRequest with:", { method, url, headers, body });
-    await sendRequest(method, url, headers, body);
+    await sendRequest(method, url, headers, requestBody);
     console.log("Request finished with statusCode:", statusCode);
     console.log("Request finished with responseBody:", responseBody);
   };
@@ -85,6 +91,7 @@ const RestClientUI: React.FC = () => {
         </div>
       </div>
       <HeadersEditor headers={headers} setHeaders={setHeaders} />
+      <VariablesEditor variables={variables} setVariables={setVariables} />
       {isMethodWithBody && <BodyEditor body={body} setBody={setBody} />}
       <SendRequestButton onClick={handleSendRequest} />
       <ResponseSection statusCode={statusCode} responseBody={responseBody} />

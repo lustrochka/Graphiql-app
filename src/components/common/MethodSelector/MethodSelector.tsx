@@ -14,7 +14,7 @@ const MethodSelector: React.FC<MethodSelectorProps> = ({
     <select
       value={method}
       onChange={(e) => setMethod(e.target.value)}
-      className={styles.methodSelector}
+      className={`${styles.methodSelector} ${styles.active}`}
     >
       {["GET", "POST", "PUT", "DELETE", "PATCH"].map((methodOption) => (
         <option key={methodOption} value={methodOption}>

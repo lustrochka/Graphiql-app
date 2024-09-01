@@ -30,7 +30,7 @@
 
 .sendRequestButton:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5);
+  box-shadow: 0 0 0 3px #d5d53a;
 }
 
 .sendRequestButton:disabled {
