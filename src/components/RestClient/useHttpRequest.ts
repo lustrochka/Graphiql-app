@@ -1,18 +1,7 @@
 import { useState } from "react";
 import { Header } from "../common/HeadersEditor/HeadersEditor";
 
-interface UseHttpRequestResult {
-  statusCode: number | null;
-  responseBody: string;
-  sendRequest: (
-    method: string,
-    url: string,
-    headers: Header[],
-    body: string,
-  ) => Promise<{ statusCode: number | null; responseBody: string }>;
-}
-
-const useHttpRequest = (): UseHttpRequestResult => {
+const useHttpRequest = () => {
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [responseBody, setResponseBody] = useState<string>("");
 
@@ -25,20 +14,12 @@ const useHttpRequest = (): UseHttpRequestResult => {
     }
   };
 
-  const isValidHeader = (header: Header): boolean => {
-    const isValid = header.key.trim() !== "" && !/\s/.test(header.key);
-    if (!isValid) {
-      console.error(`Header validation failed for key: "${header.key}"`);
-    }
-    return isValid;
-  };
-
   const sendRequest = async (
     method: string,
     url: string,
     headers: Header[],
     body: string,
-  ): Promise<{ statusCode: number | null; responseBody: string }> => {
+  ): Promise<void> => {
     console.group("HTTP Request");
     console.log("%cStarting request...", "color: green; font-weight: bold;");
 
@@ -51,14 +32,13 @@ const useHttpRequest = (): UseHttpRequestResult => {
       setStatusCode(400);
       setResponseBody("Invalid URL. Please enter a valid HTTP or HTTPS URL.");
       console.groupEnd();
-      return { statusCode: 400, responseBody: "Invalid URL" };
+      return;
     }
     console.log("%cURL is valid.", "color: green;");
 
     console.log("Validating headers...");
     for (const header of headers) {
-      console.log(`Validating header: ${header.key}: ${header.value}`);
-      if (!isValidHeader(header)) {
+      if (header.key.trim() === "" || /\s/.test(header.key)) {
         console.error(
           `%cInvalid header key: "${header.key}".`,
           "color: red; font-weight: bold;",
@@ -68,14 +48,14 @@ const useHttpRequest = (): UseHttpRequestResult => {
           `Invalid header key "${header.key}". Header keys should not be empty or contain spaces.`,
         );
         console.groupEnd();
-        return { statusCode: 400, responseBody: `Invalid header` };
+        return;
       }
     }
     console.log("%cHeaders are valid.", "color: green;");
 
     try {
       const options: RequestInit = {
-        method,
+        method: method ?? "GET",
         headers: headers.reduce(
           (acc, header) => {
             acc[header.key] = header.value;
@@ -85,7 +65,7 @@ const useHttpRequest = (): UseHttpRequestResult => {
         ),
       };
 
-      if (method !== "GET" && method !== "DELETE") {
+      if (method !== "GET" && method !== "HEAD") {
         options.body = body;
       }
 
@@ -98,7 +78,6 @@ const useHttpRequest = (): UseHttpRequestResult => {
         "color: green;",
       );
       setStatusCode(response.status);
-      setResponseBody(text);
 
       let formattedResponseBody = "";
       try {
@@ -118,11 +97,6 @@ const useHttpRequest = (): UseHttpRequestResult => {
 
       setResponseBody(formattedResponseBody);
       console.log("%cResponse Body:", "color: blue;", formattedResponseBody);
-
-      return {
-        statusCode: response.status,
-        responseBody: formattedResponseBody,
-      };
     } catch (error) {
       const errorMessage = `Error: ${
         error instanceof Error ? error.message : "Unknown error"
@@ -134,8 +108,6 @@ const useHttpRequest = (): UseHttpRequestResult => {
         "color: red; font-weight: bold;",
         errorMessage,
       );
-
-      return { statusCode: 500, responseBody: errorMessage };
     } finally {
       console.groupEnd();
     }

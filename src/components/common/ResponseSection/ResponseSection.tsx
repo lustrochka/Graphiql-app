@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import styles from "./ResponseSection.module.css";
-import { useRestClient } from "../../RestClient/RestClientContext";
 
-const ResponseSection: React.FC = () => {
-  const { statusCode, responseBody } = useRestClient();
+interface ResponseSectionProps {
+  statusCode: number | null;
+  responseBody: string;
+}
 
+const ResponseSection: React.FC<ResponseSectionProps> = ({
+  statusCode,
+  responseBody,
+}) => {
   useEffect(() => {
     console.log("ResponseSection received statusCode:", statusCode);
     console.log("ResponseSection received responseBody:", responseBody);

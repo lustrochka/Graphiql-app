@@ -1,15 +1,19 @@
 import React from "react";
-import { useRestClient } from "../../RestClient/RestClientContext";
+import styles from "./UrlInput.module.css";
 
-const UrlInput: React.FC = () => {
-  const { url, setUrl } = useRestClient();
+interface UrlInputProps {
+  url: string;
+  setUrl: (url: string) => void;
+}
 
+const UrlInput: React.FC<UrlInputProps> = ({ url, setUrl }) => {
   return (
     <input
       type="text"
-      value={url || ""}
+      value={url}
       onChange={(e) => setUrl(e.target.value)}
       placeholder="Enter API Endpoint"
+      className={styles.urlInput}
     />
   );
 };
