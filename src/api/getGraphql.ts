@@ -27,12 +27,12 @@ export default async function getGraphql({ url, query, variables, headers }) {
     if (result.data.errors) {
       return {
         response: JSON.stringify(result.data.errors[0].message),
-        status: result.status.toString(),
+        status: result.status,
       };
     } else {
       return {
         response: JSON.stringify(result.data),
-        status: result.status.toString(),
+        status: result.status,
       };
     }
   } catch (error) {
