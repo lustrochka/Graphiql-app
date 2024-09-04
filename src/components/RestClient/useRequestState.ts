@@ -5,11 +5,12 @@ import { Header } from "../common/HeadersEditor/HeadersEditor";
 import { Variable } from "../common/VariablesEditor/VariablesEditor";
 
 const useRequestState = () => {
-  const [method, setMethod] = useState<string>("POST");
+  const [method, setMethod] = useState<string>("GET");
   const [url, setUrl] = useState<string>("");
   const [headers, setHeaders] = useState<Header[]>([]);
   const [variables, setVariables] = useState<Variable[]>([]);
   const [body, setBody] = useState<string>("");
+  const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const router = useRouter();
 
   const isMethodWithBody = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
@@ -24,11 +25,12 @@ const useRequestState = () => {
     );
 
     const requestBody = JSON.stringify(bodyObject);
-    console.log("Generated Request Body:", requestBody);
     return requestBody;
   };
 
   const updateBrowserUrl = () => {
+    if (!userInteracted) return;
+
     const encodedUrl = url ? encodeBase64(url) : "";
     let encodedBody = "";
 
@@ -45,23 +47,28 @@ const useRequestState = () => {
       )
       .join("&");
 
-    const requestUrl = `/${method}${encodedUrl ? `/${encodedUrl}` : ""}${encodedBody ? `/${encodedBody}` : ""}${
-      headersQueryParams ? `?${headersQueryParams}` : ""
-    }`;
+    const requestUrl = `/${method}${encodedUrl ? `/${encodedUrl}` : ""}${
+      encodedBody ? `/${encodedBody}` : ""
+    }${headersQueryParams ? `?${headersQueryParams}` : ""}`;
 
-    console.log("Updating browser URL to:", requestUrl);
-    window.history.replaceState(null, "", requestUrl);
+    if (router.asPath !== requestUrl) {
+      window.history.replaceState(null, "", requestUrl);
+      console.log("Updating browser URL to:", requestUrl);
+    }
   };
 
   useEffect(() => {
-    console.log("Method changed to:", method);
-    console.log("URL changed to:", url);
-    console.log("Headers updated:", headers);
-    console.log("Variables updated:", variables);
-    console.log("Body updated:", body);
+    if (userInteracted) {
+      console.log("URL, Headers, Variables или Body изменились, обновление...");
+      updateBrowserUrl();
+    }
+  }, [url, headers, variables, body, method, userInteracted]);
 
-    updateBrowserUrl();
-  }, [method, url, headers, variables, body]);
+  const handleUserInteraction = () => {
+    if (!userInteracted) {
+      setUserInteracted(true);
+    }
+  };
 
   return {
     method,
@@ -76,6 +83,7 @@ const useRequestState = () => {
     setBody,
     isMethodWithBody,
     updateBrowserUrl,
+    handleUserInteraction,
   };
 };
 

@@ -1,3 +1,5 @@
+// pages/[method]/[encodedUrl]/[[...encodedBody]].tsx
+
 import { GetServerSideProps } from "next";
 import RestClientUI from "../../../components/RestClient/RestClientUI";
 import { decodeBase64 } from "../../../utils/decodeBase64";
@@ -20,7 +22,10 @@ const RequestPage: React.FC<RequestPageProps> = ({
       initialMethod={method}
       initialUrl={url}
       initialBody={body}
-      initialHeaders={headers}
+      initialHeaders={Object.entries(headers).map(([key, value]) => ({
+        key,
+        value,
+      }))}
     />
   );
 };
@@ -29,8 +34,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { method, encodedUrl, encodedBody } = context.params!;
 
+    console.log("Method:", method);
+    console.log("Encoded URL:", encodedUrl);
+    console.log("Encoded Body:", encodedBody);
+
+    // Декодируем URL
     const url = decodeBase64(encodedUrl as string);
-    const body = encodedBody ? decodeBase64(encodedBody as string) : null;
+
+    // Декодируем тело запроса, если оно передано
+    const body = encodedBody
+      ? decodeBase64((encodedBody as string[]).join("/"))
+      : null;
+
+    console.log("Decoded URL:", url);
+    console.log("Decoded Body:", body);
 
     const headers: Record<string, string> = {};
 

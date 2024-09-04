@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MethodSelector from "../common/MethodSelector/MethodSelector";
 import UrlInput from "../common/UrlInput/UrlInput";
 import HeadersEditor from "../common/HeadersEditor/HeadersEditor";
-import VariablesEditor from "../common/VariablesEditor/VariablesEditor";
+import VariablesEditor from "../common/VariablesEditor/VariablesEditor"; // Импортируем VariablesEditor
 import BodyEditor from "../common/BodyEditor/BodyEditor";
 import ResponseSection from "../common/ResponseSection/ResponseSection";
 import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
@@ -10,7 +10,21 @@ import useHttpRequest from "./useHttpRequest";
 import useRequestState from "./useRequestState";
 import styles from "./RestClientUI.module.css";
 
-const RestClientUI: React.FC = () => {
+interface RestClientUIProps {
+  initialMethod?: string;
+  initialUrl?: string;
+  initialBody?: string | null;
+  initialHeaders?: { key: string; value: string }[];
+  initialVariables?: { key: string; value: string }[]; // Добавляем начальные переменные
+}
+
+const RestClientUI: React.FC<RestClientUIProps> = ({
+  initialMethod = "GET",
+  initialUrl = "",
+  initialBody = "",
+  initialHeaders = [],
+  initialVariables = [], // Добавляем начальные переменные
+}) => {
   const {
     method,
     setMethod,
@@ -18,20 +32,50 @@ const RestClientUI: React.FC = () => {
     setUrl,
     headers,
     setHeaders,
-    variables,
-    setVariables,
+    variables, // Получаем переменные
+    setVariables, // Функция для установки переменных
     body,
     setBody,
     isMethodWithBody,
+    handleUserInteraction,
   } = useRequestState();
 
   const { statusCode, responseBody, sendRequest, clearResponse } =
     useHttpRequest();
 
   useEffect(() => {
-    console.log("Method changed, clearing response");
+    if (typeof window !== "undefined") {
+      setMethod(initialMethod);
+      setUrl(initialUrl);
+      setBody(initialBody || "");
+      setHeaders(initialHeaders);
+      setVariables(initialVariables); // Устанавливаем начальные переменные
+    }
+  }, []);
+
+  useEffect(() => {
     clearResponse();
   }, [method]);
+
+  const saveRequestToHistory = () => {
+    if (typeof window !== "undefined") {
+      const history = JSON.parse(
+        localStorage.getItem("requestHistory") || "[]",
+      );
+
+      const requestData = {
+        method,
+        url,
+        headers,
+        variables, // Сохраняем переменные
+        body: isMethodWithBody ? body : null,
+        time: new Date().toISOString(),
+      };
+
+      history.push(requestData);
+      localStorage.setItem("requestHistory", JSON.stringify(history));
+    }
+  };
 
   const handleSendRequest = async () => {
     if (!url) {
@@ -39,6 +83,7 @@ const RestClientUI: React.FC = () => {
       return;
     }
 
+    // Формируем тело запроса на основе переменных, если они существуют
     const requestBody = isMethodWithBody
       ? JSON.stringify(
           variables.reduce(
@@ -51,25 +96,8 @@ const RestClientUI: React.FC = () => {
         )
       : body;
 
-    if (
-      isMethodWithBody &&
-      !headers.some((header) => header.key.toLowerCase() === "content-type")
-    ) {
-      setHeaders([
-        ...headers,
-        { key: "Content-Type", value: "application/json" },
-      ]);
-    }
-
-    console.log("Sending request with the following data:");
-    console.log("Method:", method);
-    console.log("URL:", url);
-    console.log("Headers:", headers);
-    console.log("Request Body:", requestBody);
-
     await sendRequest(method, url, headers, requestBody);
-    console.log("Request finished with statusCode:", statusCode);
-    console.log("Request finished with responseBody:", responseBody);
+    saveRequestToHistory();
   };
 
   return (
@@ -83,16 +111,53 @@ const RestClientUI: React.FC = () => {
       <div className={styles.apiRequestConfig}>
         <div className={`${styles.methodSelector} ${styles.inputContainer}`}>
           <label htmlFor="method">Method:</label>
-          <MethodSelector method={method} setMethod={setMethod} />
+          <MethodSelector
+            method={method}
+            setMethod={(newMethod) => {
+              handleUserInteraction();
+              setMethod(newMethod);
+            }}
+          />
         </div>
         <div className={`${styles.urlInput} ${styles.inputContainer}`}>
           <label htmlFor="url">URL:</label>
-          <UrlInput url={url} setUrl={setUrl} />
+          <UrlInput
+            url={url}
+            setUrl={(newUrl) => {
+              handleUserInteraction();
+              setUrl(newUrl);
+            }}
+          />
         </div>
       </div>
-      <HeadersEditor headers={headers} setHeaders={setHeaders} />
-      <VariablesEditor variables={variables} setVariables={setVariables} />
-      {isMethodWithBody && <BodyEditor body={body} setBody={setBody} />}
+
+      {/* Добавляем редактор переменных */}
+      <VariablesEditor
+        variables={variables}
+        setVariables={(newVariables) => {
+          handleUserInteraction();
+          setVariables(newVariables);
+        }}
+      />
+
+      <HeadersEditor
+        headers={headers}
+        setHeaders={(newHeaders) => {
+          handleUserInteraction();
+          setHeaders(newHeaders);
+        }}
+      />
+
+      {isMethodWithBody && (
+        <BodyEditor
+          body={body}
+          setBody={(newBody) => {
+            handleUserInteraction();
+            setBody(newBody);
+          }}
+        />
+      )}
+
       <SendRequestButton onClick={handleSendRequest} />
       <ResponseSection statusCode={statusCode} responseBody={responseBody} />
     </form>
