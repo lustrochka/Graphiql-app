@@ -1,39 +1,33 @@
-import { encodeBase64 } from "../../utils/encodeBase64";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styles from "./History.module.css";
-
-interface HistoryItem {
+interface RequestData {
   method: string;
   url: string;
+  headers: { key: string; value: string }[];
+  variables: { key: string; value: string }[];
   body: string | null;
-  headers: Record<string, string>;
+  time: string;
 }
 
 const History: React.FC = () => {
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [history, setHistory] = useState<RequestData[]>([]);
   const router = useRouter();
 
   useEffect(() => {
-    const storedHistory = JSON.parse(
-      localStorage.getItem("requestHistory") || "[]",
-    );
-    setHistory(storedHistory);
+    const storedHistory = localStorage.getItem("requestHistory");
+    if (storedHistory) {
+      const parsedHistory = JSON.parse(storedHistory);
+      setHistory(parsedHistory);
+    }
   }, []);
 
-  const handleClick = (item: HistoryItem) => {
-    const encodedUrl = encodeBase64(item.url);
-    const encodedBody = item.body ? encodeBase64(item.body) : null;
-    const encodedHeaders = encodeBase64(JSON.stringify(item.headers));
+  const handleRequestClick = (request: RequestData) => {
+    const encodedUrl = btoa(request.url);
+    const encodedBody = request.body ? btoa(request.body) : null;
 
-    const queryParams = new URLSearchParams({
-      method: item.method,
-      url: encodedUrl,
-      body: encodedBody || "",
-      headers: encodedHeaders,
-    });
-
-    router.push(`/rest?${queryParams.toString()}`);
+    const route = `/${request.method}/${encodedUrl}${encodedBody ? `/${encodedBody}` : ""}`;
+    router.push(route);
   };
 
   return (
@@ -58,13 +52,14 @@ const History: React.FC = () => {
         </div>
       ) : (
         <ul className={styles.historyList}>
-          {history.map((item, index) => (
+          {history.map((request, index) => (
             <li key={index} className={styles.historyItem}>
               <a
-                className={styles.historyItem}
-                onClick={() => handleClick(item)}
+                className={styles.historyLink}
+                onClick={() => handleRequestClick(request)}
               >
-                [{item.method}] {item.url}
+                [{request.method}] {request.url} -{" "}
+                {new Date(request.time).toLocaleString()}
               </a>
             </li>
           ))}

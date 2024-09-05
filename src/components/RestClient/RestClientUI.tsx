@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from "react";
-import MethodSelector from "../common/MethodSelector/MethodSelector";
-import UrlInput from "../common/UrlInput/UrlInput";
+import React from "react";
+import RequestConfigSection from "./RequestConfigSection";
 import HeadersEditor from "../common/HeadersEditor/HeadersEditor";
-import VariablesEditor from "../common/VariablesEditor/VariablesEditor"; // Импортируем VariablesEditor
+import VariablesEditor from "../common/VariablesEditor/VariablesEditor";
 import BodyEditor from "../common/BodyEditor/BodyEditor";
 import ResponseSection from "../common/ResponseSection/ResponseSection";
 import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
-import useHttpRequest from "./useHttpRequest";
-import useRequestState from "./useRequestState";
+import useHttpRequestState from "../../hooks/useHttpRequestState";
+import useHttpRequest from "../../hooks/useHttpRequest";
+import useRequestHistory from "../../hooks/useRequestHistory";
 import styles from "./RestClientUI.module.css";
 
 interface RestClientUIProps {
-  initialMethod?: string;
-  initialUrl?: string;
-  initialBody?: string | null;
-  initialHeaders?: { key: string; value: string }[];
-  initialVariables?: { key: string; value: string }[]; // Добавляем начальные переменные
+  initialMethod: string;
+  initialUrl: string;
+  initialBody: string;
+  initialHeaders: { key: string; value: string }[];
 }
 
 const RestClientUI: React.FC<RestClientUIProps> = ({
-  initialMethod = "GET",
-  initialUrl = "",
-  initialBody = "",
-  initialHeaders = [],
-  initialVariables = [], // Добавляем начальные переменные
+  initialMethod,
+  initialUrl,
+  initialBody,
+  initialHeaders,
 }) => {
   const {
     method,
@@ -32,50 +30,40 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
     setUrl,
     headers,
     setHeaders,
-    variables, // Получаем переменные
-    setVariables, // Функция для установки переменных
+    variables,
+    setVariables,
     body,
     setBody,
     isMethodWithBody,
+    updateBrowserUrl,
     handleUserInteraction,
-  } = useRequestState();
+  } = useHttpRequestState();
 
-  const { statusCode, responseBody, sendRequest, clearResponse } =
-    useHttpRequest();
+  const { statusCode, responseBody, sendRequest } = useHttpRequest();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setMethod(initialMethod);
-      setUrl(initialUrl);
-      setBody(initialBody || "");
-      setHeaders(initialHeaders);
-      setVariables(initialVariables); // Устанавливаем начальные переменные
-    }
-  }, []);
+  const { saveRequestToHistory } = useRequestHistory(
+    method,
+    url,
+    headers,
+    variables,
+    body,
+  );
 
-  useEffect(() => {
-    clearResponse();
-  }, [method]);
-
-  const saveRequestToHistory = () => {
-    if (typeof window !== "undefined") {
-      const history = JSON.parse(
-        localStorage.getItem("requestHistory") || "[]",
-      );
-
-      const requestData = {
-        method,
-        url,
-        headers,
-        variables, // Сохраняем переменные
-        body: isMethodWithBody ? body : null,
-        time: new Date().toISOString(),
-      };
-
-      history.push(requestData);
-      localStorage.setItem("requestHistory", JSON.stringify(history));
-    }
-  };
+  React.useEffect(() => {
+    setMethod(initialMethod);
+    setUrl(initialUrl);
+    setBody(initialBody);
+    setHeaders(initialHeaders);
+  }, [
+    initialMethod,
+    initialUrl,
+    initialBody,
+    initialHeaders,
+    setMethod,
+    setUrl,
+    setBody,
+    setHeaders,
+  ]);
 
   const handleSendRequest = async () => {
     if (!url) {
@@ -83,7 +71,6 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
       return;
     }
 
-    // Формируем тело запроса на основе переменных, если они существуют
     const requestBody = isMethodWithBody
       ? JSON.stringify(
           variables.reduce(
@@ -97,7 +84,13 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
       : body;
 
     await sendRequest(method, url, headers, requestBody);
-    saveRequestToHistory();
+
+    if (url !== "") {
+      console.log("Запрос прошел успешно. Сохранение в историю...");
+      saveRequestToHistory();
+    } else {
+      console.log("Некорректные данные, запрос не будет сохранен в историю");
+    }
   };
 
   return (
@@ -108,56 +101,18 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
       }}
       className={styles.container}
     >
-      <div className={styles.apiRequestConfig}>
-        <div className={`${styles.methodSelector} ${styles.inputContainer}`}>
-          <label htmlFor="method">Method:</label>
-          <MethodSelector
-            method={method}
-            setMethod={(newMethod) => {
-              handleUserInteraction();
-              setMethod(newMethod);
-            }}
-          />
-        </div>
-        <div className={`${styles.urlInput} ${styles.inputContainer}`}>
-          <label htmlFor="url">URL:</label>
-          <UrlInput
-            url={url}
-            setUrl={(newUrl) => {
-              handleUserInteraction();
-              setUrl(newUrl);
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Добавляем редактор переменных */}
-      <VariablesEditor
-        variables={variables}
-        setVariables={(newVariables) => {
-          handleUserInteraction();
-          setVariables(newVariables);
-        }}
+      <RequestConfigSection
+        method={method}
+        setMethod={setMethod}
+        url={url}
+        setUrl={setUrl}
+        handleUserInteraction={handleUserInteraction}
+        updateBrowserUrl={updateBrowserUrl}
       />
 
-      <HeadersEditor
-        headers={headers}
-        setHeaders={(newHeaders) => {
-          handleUserInteraction();
-          setHeaders(newHeaders);
-        }}
-      />
-
-      {isMethodWithBody && (
-        <BodyEditor
-          body={body}
-          setBody={(newBody) => {
-            handleUserInteraction();
-            setBody(newBody);
-          }}
-        />
-      )}
-
+      <VariablesEditor variables={variables} setVariables={setVariables} />
+      <HeadersEditor headers={headers} setHeaders={setHeaders} />
+      {isMethodWithBody && <BodyEditor body={body} setBody={setBody} />}
       <SendRequestButton onClick={handleSendRequest} />
       <ResponseSection statusCode={statusCode} responseBody={responseBody} />
     </form>
