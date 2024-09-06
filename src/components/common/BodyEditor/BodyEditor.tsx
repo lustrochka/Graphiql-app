@@ -20,7 +20,7 @@ const BodyEditor: React.FC<BodyEditorProps> = ({ body, setBody }) => {
   return (
     <div className={styles.bodyEditorContainer}>
       <textarea
-        value={body}
+        value={body || ""}
         onChange={(e) => setBody(e.target.value)}
         placeholder="Enter request body (JSON or plain text)"
         className={`${styles.inputContainer} ${styles.textareaContainer}`}

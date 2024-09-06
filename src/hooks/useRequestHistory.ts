@@ -38,13 +38,9 @@ const useRequestHistory = (
     }
   };
 
-  useEffect(() => {
-    console.log("useRequestHistory triggered");
-    saveRequestToHistory();
-  }, [method, url, headers, variables, body]);
-
+  // Убираем избыточный useEffect, чтобы запросы не сохранялись при каждом изменении состояния
   return {
-    saveRequestToHistory,
+    saveRequestToHistory, // Возвращаем функцию сохранения для вызова в нужный момент
   };
 };
 

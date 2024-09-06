@@ -35,7 +35,6 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
     body,
     setBody,
     isMethodWithBody,
-    updateBrowserUrl,
     handleUserInteraction,
   } = useHttpRequestState();
 
@@ -66,10 +65,11 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
   ]);
 
   const handleSendRequest = async () => {
-    if (!url) {
-      console.log("URL пустой, запрос не будет отправлен");
-      return;
-    }
+    // if (!url || !isValidUrl(url)) {
+    //   // Проверка на корректный URL
+    //   console.log("Некорректный URL, запрос не будет отправлен");
+    //   return;
+    // }
 
     const requestBody = isMethodWithBody
       ? JSON.stringify(
@@ -86,10 +86,10 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
     await sendRequest(method, url, headers, requestBody);
 
     if (url !== "") {
-      console.log("Запрос прошел успешно. Сохранение в историю...");
+      console.log("Request successful. Saving to history...");
       saveRequestToHistory();
     } else {
-      console.log("Некорректные данные, запрос не будет сохранен в историю");
+      console.log("Incorrect data, the request will not be saved to history");
     }
   };
 
@@ -107,13 +107,11 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
         url={url}
         setUrl={setUrl}
         handleUserInteraction={handleUserInteraction}
-        updateBrowserUrl={updateBrowserUrl}
       />
-
       <VariablesEditor variables={variables} setVariables={setVariables} />
       <HeadersEditor headers={headers} setHeaders={setHeaders} />
       {isMethodWithBody && <BodyEditor body={body} setBody={setBody} />}
-      <SendRequestButton onClick={handleSendRequest} />
+      <SendRequestButton />
       <ResponseSection statusCode={statusCode} responseBody={responseBody} />
     </form>
   );
