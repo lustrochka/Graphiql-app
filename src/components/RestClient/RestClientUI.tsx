@@ -36,6 +36,7 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
     setBody,
     isMethodWithBody,
     handleUserInteraction,
+    updateBrowserUrl,
   } = useHttpRequestState();
 
   const { statusCode, responseBody, sendRequest } = useHttpRequest();
@@ -107,6 +108,7 @@ const RestClientUI: React.FC<RestClientUIProps> = ({
         url={url}
         setUrl={setUrl}
         handleUserInteraction={handleUserInteraction}
+        updateBrowserUrl={updateBrowserUrl}
       />
       <VariablesEditor variables={variables} setVariables={setVariables} />
       <HeadersEditor headers={headers} setHeaders={setHeaders} />

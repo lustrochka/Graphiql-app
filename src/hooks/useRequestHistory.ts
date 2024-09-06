@@ -38,9 +38,8 @@ const useRequestHistory = (
     }
   };
 
-  // Убираем избыточный useEffect, чтобы запросы не сохранялись при каждом изменении состояния
   return {
-    saveRequestToHistory, // Возвращаем функцию сохранения для вызова в нужный момент
+    saveRequestToHistory,
   };
 };
 
