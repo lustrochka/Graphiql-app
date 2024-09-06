@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "./History.module.css";
+
 interface RequestData {
   method: string;
   url: string;
@@ -25,10 +26,18 @@ const History: React.FC = () => {
   const handleRequestClick = (request: RequestData) => {
     const encodedUrl = btoa(request.url);
     const encodedBody = request.body ? btoa(request.body) : null;
-
-    const route = `/${request.method}/${encodedUrl}${encodedBody ? `/${encodedBody}` : ""}`;
+    const route = `/${request.method}/${encodedUrl}${
+      encodedBody ? `/${encodedBody}` : ""
+    }`;
     router.push(route);
   };
+
+  const restRequests = history.filter((request) =>
+    ["GET", "POST", "PUT", "DELETE"].includes(request.method),
+  );
+  const graphqlRequests = history.filter(
+    (request) => request.method === "GRAPHQL",
+  );
 
   return (
     <div className={styles.container}>
@@ -51,19 +60,67 @@ const History: React.FC = () => {
           </button>
         </div>
       ) : (
-        <ul className={styles.historyList}>
-          {history.map((request, index) => (
-            <li key={index} className={styles.historyItem}>
-              <a
-                className={styles.historyLink}
-                onClick={() => handleRequestClick(request)}
-              >
-                [{request.method}] {request.url} -{" "}
-                {new Date(request.time).toLocaleString()}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.tableContainer}>
+          <div className={styles.column}>
+            <h3 className={styles.columnTitle}>REST Client Requests</h3>
+            {restRequests.length > 0 ? (
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {restRequests.map((request, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => handleRequestClick(request)}
+                      className={styles.historyRow}
+                    >
+                      <td>{request.method}</td>
+                      <td>{request.url}</td>
+                      <td>{new Date(request.time).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No REST requests found.</p>
+            )}
+          </div>
+
+          <div className={styles.column}>
+            <h3 className={styles.columnTitle}>GraphQL Client Requests</h3>
+            {graphqlRequests.length > 0 ? (
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {graphqlRequests.map((request, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => handleRequestClick(request)}
+                      className={styles.historyRow}
+                    >
+                      <td>{request.method}</td>
+                      <td>{request.url}</td>
+                      <td>{new Date(request.time).toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No GraphQL requests found.</p>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );
