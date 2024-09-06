@@ -24,6 +24,11 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({
     setHeaders(updatedHeaders);
   };
 
+  const removeHeader = (index: number) => {
+    const updatedHeaders = headers.filter((_, i) => i !== index);
+    setHeaders(updatedHeaders);
+  };
+
   return (
     <div className={styles.headersEditor}>
       <button className={styles.addHeaderButton} onClick={addHeader}>
@@ -45,6 +50,13 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({
             value={header.value}
             onChange={(e) => updateHeader(index, header.key, e.target.value)}
           />
+          <button
+            type="button"
+            className={styles.removeHeaderButton}
+            onClick={() => removeHeader(index)}
+          >
+            ✖
+          </button>
         </div>
       ))}
     </div>
