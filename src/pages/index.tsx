@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Info from "../components/Info/Info";
 import Link from "next/link";
 import { auth, db } from "../lib/firebase";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
@@ -30,36 +31,39 @@ const WelcomePage: React.FC = () => {
   }, []);
 
   return (
-    <main className={styles.welcomePage}>
-      <h1>{user ? `Welcome Back!` : "Welcome!"}</h1>
-      <nav>
-        <ul className={styles.primaryLinks}>
-          {user ? null : (
-            <>
-              <li>
-                <Link href="/signin">Sign In</Link>
-              </li>
-              <li>
-                <Link href="/signup">Sign Up</Link>
-              </li>
-            </>
-          )}
-        </ul>
-        {user && (
-          <ul className={styles.secondaryLinks}>
-            <li>
-              <Link href="/restclient">REST Client</Link>
-            </li>
-            <li>
-              <Link href="/graphiql">GraphiQL Client</Link>
-            </li>
-            <li>
-              <Link href="/history">History</Link>
-            </li>
+    <>
+      <main className={styles.welcomePage}>
+        <h1>{user ? `Welcome Back!` : "Welcome!"}</h1>
+        <nav>
+          <ul className={styles.primaryLinks}>
+            {user ? null : (
+              <>
+                <li>
+                  <Link href="/signin">Sign In</Link>
+                </li>
+                <li>
+                  <Link href="/signup">Sign Up</Link>
+                </li>
+              </>
+            )}
           </ul>
-        )}
-      </nav>
-    </main>
+          {user && (
+            <ul className={styles.secondaryLinks}>
+              <li>
+                <Link href="/restclient">REST Client</Link>
+              </li>
+              <li>
+                <Link href="/graphiql">GraphiQL Client</Link>
+              </li>
+              <li>
+                <Link href="/history">History</Link>
+              </li>
+            </ul>
+          )}
+        </nav>
+      </main>
+      <Info />
+    </>
   );
 };
 
