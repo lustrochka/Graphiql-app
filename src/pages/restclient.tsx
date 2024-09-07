@@ -1,8 +1,6 @@
-
 import withPrivateRoute from "../hoc/withPrivateRoute";
 import React from "react";
 import RestClientUI from "../components/RestClient/RestClientUI";
-
 
 const RestClientPage: React.FC = () => {
   return (
