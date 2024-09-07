@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #25c33f;
+  background-color: var(--bg-purple);
   color: white;
   position: sticky;
   top: 0;
@@ -11,6 +11,10 @@
   transition:
     background-color 0.3s,
     height 0.3s;
+}
+
+.header.sticky {
+  background-color: rgba(195, 190, 240, 0.6);
 }
 
 .logo a {
