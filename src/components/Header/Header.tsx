@@ -56,9 +56,14 @@ const Header: React.FC = () => {
           {language}
         </button>
         {user ? (
-          <button className={styles.authButton} onClick={handleSignOut}>
-            Sign Out
-          </button>
+          <>
+            <Link href="/" passHref>
+              <button className={styles.authButton}>Main Page</button>
+            </Link>
+            <button className={styles.authButton} onClick={handleSignOut}>
+              Sign Out
+            </button>
+          </>
         ) : (
           <>
             <Link href="/signin" passHref>
