@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { auth, db } from "../../lib/firebase";
+import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import styles from "./Header.module.css";
 
 const Header: React.FC = () => {
   const [isSticky, setSticky] = useState(false);
   const [language, setLanguage] = useState("EN");
+  const [user, setUser] = useState<FirebaseUser | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,8 +23,20 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const toggleLanguage = () => {
     setLanguage((prevLanguage) => (prevLanguage === "EN" ? "RU" : "EN"));
+  };
+
+  const handleSignOut = () => {
+    auth.signOut();
   };
 
   return (
@@ -40,12 +55,20 @@ const Header: React.FC = () => {
         <button className={styles.langToggle} onClick={toggleLanguage}>
           {language}
         </button>
-        <Link href="/signin" passHref>
-          <button className={styles.authButton}>Sign In</button>
-        </Link>
-        <Link href="/signup" passHref>
-          <button className={styles.authButton}>Sign Up</button>
-        </Link>
+        {user ? (
+          <button className={styles.authButton} onClick={handleSignOut}>
+            Sign Out
+          </button>
+        ) : (
+          <>
+            <Link href="/signin" passHref>
+              <button className={styles.authButton}>Sign In</button>
+            </Link>
+            <Link href="/signup" passHref>
+              <button className={styles.authButton}>Sign Up</button>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

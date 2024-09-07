@@ -20,7 +20,6 @@ const WelcomePage: React.FC = () => {
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           const userData = userDoc.data() as UserData;
-          setUserName(userData.name);
         }
       } else {
         setUser(null);
@@ -35,11 +34,7 @@ const WelcomePage: React.FC = () => {
       <h1>{user ? `Welcome Back!` : "Welcome!"}</h1>
       <nav>
         <ul className={styles.primaryLinks}>
-          {user ? (
-            <li>
-              <button onClick={() => auth.signOut()}>Sign Out</button>
-            </li>
-          ) : (
+          {user ? null : (
             <>
               <li>
                 <Link href="/signin">Sign In</Link>
