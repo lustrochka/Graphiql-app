@@ -29,6 +29,7 @@ module.exports = {
   ],
   rules: {
     "react-compiler/react-compiler": "error",
+    "react/prop-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": "off",

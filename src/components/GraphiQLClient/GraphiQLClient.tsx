@@ -1,63 +1,57 @@
-import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import RequestBlock from "./RequestBlock";
+import ResponseBlock from "./ResponseBlock";
+import DocsBlock from "./DocsBlock";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import getGraphql from "../../api/getGraphql";
+import { getGraphqlDocs } from "../../api/getGraphqlDocs";
 import styles from "./GraphiQLClient.module.css";
 
-const GraphQLClient: React.FC = () => {
-  const DEFAULT_URL = "https://rickandmortyapi.com/graphql";
-  const DEFAULT_BODY = `
-    query GetCharacter($id: ID!) {
-      character(id: $id) {
-        name
-        species
-      }
-    }
-    `;
-  const DEFAULT_VARIABLES = `{"id": 1}`;
-  const [url, setUrl] = useState(DEFAULT_URL);
-  const [body, setBody] = useState(DEFAULT_BODY);
-  const [variables, setVariables] = useState(DEFAULT_VARIABLES);
-
-  return (
-    <div className={styles.graphql}>
-      <label htmlFor="url">url</label>
-      <input
-        type="text"
-        id="url"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      ></input>
-      <label htmlFor="body">request</label>
-      <textarea
-        id="body"
-        value={body}
-        rows={10}
-        cols={33}
-        onChange={(e) => setBody(e.target.value)}
-      ></textarea>
-      <label htmlFor="variables">variables</label>
-      <textarea
-        id="variables"
-        value={variables}
-        onChange={(e) => setVariables(e.target.value)}
-      ></textarea>
-      <button onClick={() => fetchData(url, body, variables)}>Send</button>
-    </div>
-  );
+type FormData = {
+  url: string;
+  sdl: string;
+  query: string;
+  variables: string;
+  headers: string;
 };
 
-const fetchData = async (url, query, variables) => {
-  const parsedVars = JSON.parse(variables || "{}");
-  const response = await axios.post(
-    url,
-    {
-      query,
-      variables: parsedVars,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
+const GraphQLClient: React.FC = () => {
+  const [jsonError, setJsonError] = useState("");
+  const [status, setStatus] = useState("");
+  const [response, setResponse] = useState("");
+  const [docs, setDocs] = useState("");
+
+  const methods = useForm<FormData>();
+  const { watch, setValue, handleSubmit } = methods;
+
+  const url = watch("url");
+
+  useEffect(() => {
+    if (url) {
+      setValue("sdl", `${url}?sdl`);
+    }
+  }, [url, setValue]);
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    getGraphql(data).then((res) => {
+      if (res.jsonError) setJsonError(res.jsonError);
+      if (res.status) setStatus(res.status);
+      if (res.response) setResponse(res.response);
+    });
+    getGraphqlDocs(data.sdl).then((res) => {
+      if (res) setDocs(res);
+    });
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <form className={styles.graphql} onSubmit={handleSubmit(onSubmit)}>
+        <RequestBlock />
+        <p>{jsonError}</p>
+        <ResponseBlock {...{ response, status, docs }} />
+        <DocsBlock docs={docs} />
+      </form>
+    </FormProvider>
   );
 };
 
