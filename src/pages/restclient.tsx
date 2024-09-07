@@ -1,3 +1,4 @@
+import withPrivateRoute from "../hoc/withPrivateRoute";
 import React from "react";
 import RestClientUI from "../components/RestClient/RestClientUI";
 
@@ -15,4 +16,8 @@ const RestClientPage: React.FC = () => {
   );
 };
 
-export default RestClientPage;
+RestClientPage.displayName = "RestClientPage";
+
+const WrappedRestClientPage = withPrivateRoute(RestClientPage);
+
+export default WrappedRestClientPage;

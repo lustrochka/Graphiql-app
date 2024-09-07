@@ -1,4 +1,5 @@
 import GraphQLClient from "../components/GraphiQLClient/GraphiQLClient";
+import withPrivateRoute from "../hoc/withPrivateRoute";
 
 const GraphiQLPage: React.FC = () => {
   return (
@@ -9,4 +10,8 @@ const GraphiQLPage: React.FC = () => {
   );
 };
 
-export default GraphiQLPage;
+GraphiQLPage.displayName = "GraphiQLPage";
+
+const WrappedGraphiQLPage = withPrivateRoute(GraphiQLPage);
+
+export default WrappedGraphiQLPage;
