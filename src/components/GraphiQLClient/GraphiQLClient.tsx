@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import RequestBlock from "./RequestBlock";
-import ResponseBlock from "./ResponseBlock";
+import ResponseSection from "../common/ResponseSection/ResponseSection";
 import DocsBlock from "./DocsBlock";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import getGraphql from "../../api/getGraphql";
 import { getGraphqlDocs } from "../../api/getGraphqlDocs";
+import { useRouter } from "next/router";
 import styles from "./GraphiQLClient.module.css";
 
 type FormData = {
@@ -17,7 +18,7 @@ type FormData = {
 
 const GraphQLClient: React.FC = () => {
   const [jsonError, setJsonError] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(null);
   const [response, setResponse] = useState("");
   const [docs, setDocs] = useState("");
 
@@ -30,7 +31,7 @@ const GraphQLClient: React.FC = () => {
     if (url) {
       setValue("sdl", `${url}?sdl`);
     }
-  }, [url, setValue]);
+  }, [url]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     getGraphql(data).then((res) => {
@@ -48,7 +49,7 @@ const GraphQLClient: React.FC = () => {
       <form className={styles.graphql} onSubmit={handleSubmit(onSubmit)}>
         <RequestBlock />
         <p>{jsonError}</p>
-        <ResponseBlock {...{ response, status, docs }} />
+        <ResponseSection statusCode={status} responseBody={response} />
         <DocsBlock docs={docs} />
       </form>
     </FormProvider>

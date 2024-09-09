@@ -1,4 +1,4 @@
-import GraphQLClient from "../components/GraphiQLClient/GraphiQLClient";
+import GraphQLClient from "../../components/GraphiQLClient/GraphiQLClient";
 
 const GraphiQLPage: React.FC = () => {
   return (

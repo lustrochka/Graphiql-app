@@ -1,27 +1,39 @@
 import { useFormContext, Controller } from "react-hook-form";
+import UrlBlock from "./UrlBlock";
+import BodyEditor from "./BodyEditor";
+import VariablesEditor from "./VariablesEditor";
+import HeadersEditor from "./HeadersEditor";
+import { useRouter } from "next/router";
+import { decodeBase64 } from "../../utils/decodeBase64";
+import { useEffect } from "react";
 
 const RequestBlock: React.FC = () => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const DEFAULT_URL = "https://rickandmortyapi.com/graphql";
-  const DEFAULT_BODY = `
-    query GetCharacter($id: ID!) {
-      character(id: $id) {
-        name
-        species
+
+  const router = useRouter();
+  const { slug, ...queryParams } = router.query;
+
+  useEffect(() => {
+    if (slug) {
+      if (slug[0] && slug[0] !== "[[...slug]]") {
+        setValue("url", decodeBase64(slug[0]));
+      }
+      if (slug[1] && slug[1] !== "[[...slug]]") {
+        const body = JSON.parse(decodeBase64(slug[1]));
+        if (body.query) setValue("query", body.query);
+        if (body.variables) setValue("variables", body.variables);
       }
     }
-    `;
-  const DEFAULT_VARIABLES = `{"id": 1}`;
+
+    if (queryParams) {
+      setValue("headers", decodeURIComponent(JSON.stringify(queryParams)));
+    }
+  }, [router.isReady]);
 
   return (
-    <div>
-      <label htmlFor="url">url</label>
-      <Controller
-        name="url"
-        control={control}
-        defaultValue={DEFAULT_URL}
-        render={({ field }) => <input type="text" {...field} />}
-      />
+    <>
+      <UrlBlock />
       <label htmlFor="sdl">SDL URL</label>
       <Controller
         name="sdl"
@@ -29,28 +41,11 @@ const RequestBlock: React.FC = () => {
         defaultValue={`${DEFAULT_URL}?sdl`}
         render={({ field }) => <input type="text" {...field} />}
       />
-      <label htmlFor="query">request</label>
-      <Controller
-        name="query"
-        control={control}
-        defaultValue={DEFAULT_BODY}
-        render={({ field }) => <textarea {...field} />}
-      />
-      <label htmlFor="variables">variables</label>
-      <Controller
-        name="variables"
-        control={control}
-        defaultValue={DEFAULT_VARIABLES}
-        render={({ field }) => <textarea {...field} />}
-      />
-      <label htmlFor="headers">variables</label>
-      <Controller
-        name="headers"
-        control={control}
-        render={({ field }) => <textarea {...field} />}
-      />
+      <BodyEditor />
+      <VariablesEditor />
+      <HeadersEditor />
       <button type="submit">Send</button>
-    </div>
+    </>
   );
 };
 
