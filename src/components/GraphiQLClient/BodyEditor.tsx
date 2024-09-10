@@ -1,9 +1,9 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { encodeBase64 } from "../../utils/encodeBase64";
-import { useRouter } from "next/router";
+import { useChangeURL } from "../../hooks/changeURL";
 
 const BodyEditor: React.FC = () => {
   const { control, getValues } = useFormContext();
+  const { changeURL } = useChangeURL();
   const DEFAULT_BODY = `
     query GetCharacter($id: ID!) {
       character(id: $id) {
@@ -13,19 +13,10 @@ const BodyEditor: React.FC = () => {
     }
     `;
 
-  const router = useRouter();
-
   const updateUrl = (query) => {
-    const queryParams = router.asPath.split("?")[1];
-    const endpoint = encodeBase64(getValues("url"));
+    const endpoint = getValues("url");
     const variables = getValues("variables");
-    const body = encodeBase64(
-      JSON.stringify({ query, ...(variables && { variables }) }),
-    );
-    const newURL = queryParams
-      ? `/graphql/${endpoint}/${body}?${queryParams}`
-      : `/graphql/${endpoint}/${body}`;
-    router.replace({}, newURL, { shallow: true });
+    changeURL({ query, url: endpoint, variables });
   };
 
   return (

@@ -3,13 +3,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 const HeadersEditor: React.FC = () => {
-  const { control, setValue } = useFormContext();
+  const { control } = useFormContext();
   const [error, setError] = useState("");
 
   const router = useRouter();
 
   const updateUrl = (headers) => {
-    console.log(headers);
     try {
       const parsedHeaders = JSON.parse(headers);
       setError("");
@@ -23,9 +22,7 @@ const HeadersEditor: React.FC = () => {
       ).toString();
 
       const newPath = `${router.asPath.split("?")[0]}?${stringHeaders}`;
-      console.log(newPath);
       router.replace({}, newPath, { shallow: true });
-      //setValue("headers", headers);
     } catch {
       setError("Headers should be in JSON format");
     }
