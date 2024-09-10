@@ -15,7 +15,10 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({
   headers,
   setHeaders,
 }) => {
-  const addHeader = () => setHeaders([...headers, { key: "", value: "" }]);
+  const addHeader = (e: React.MouseEvent) => {
+    e.preventDefault(); // Остановка отправки формы
+    setHeaders([...headers, { key: "", value: "" }]);
+  };
 
   const updateHeader = (index: number, key: string, value: string) => {
     const updatedHeaders = headers.map((header, i) =>
@@ -31,7 +34,11 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({
 
   return (
     <div className={styles.headersEditor}>
-      <button className={styles.addHeaderButton} onClick={addHeader}>
+      <button
+        type="button"
+        className={styles.addHeaderButton}
+        onClick={addHeader}
+      >
         Add Header
       </button>
       {headers.map((header, index) => (

@@ -1,4 +1,50 @@
-/* History.module.css */
+.container {
+  padding: 20px;
+}
+
+.tableContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.column {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #14f111;
+  color: white;
+}
+
+.historyRow:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.historyRow td {
+  text-align: left;
+}
+
+.columnTitle {
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
 .emptyHistory {
   text-align: center;
   margin-top: 50px;
@@ -17,32 +63,4 @@
 .clientButton:hover {
   background-color: #fcfcd4;
   transform: translateY(-2px);
-}
-
-.clientButton:active {
-  transform: translateY(0);
-}
-
-.clientButton:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px #d5d53a;
-}
-
-.clientButton:disabled {
-  background-color: #c0c0c0;
-  cursor: not-allowed;
-}
-
-.historyList {
-  padding: 20px;
-}
-
-.historyItem {
-  margin-bottom: 10px;
-  cursor: pointer;
-  color: #0070f3;
-}
-
-.historyItem:hover {
-  text-decoration: underline;
 }

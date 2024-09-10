@@ -15,8 +15,10 @@ const VariablesEditor: React.FC<VariablesEditorProps> = ({
   variables,
   setVariables,
 }) => {
-  const addVariable = () =>
+  const addVariable = (e: React.MouseEvent) => {
+    e.preventDefault(); // Остановка отправки формы
     setVariables([...variables, { key: "", value: "" }]);
+  };
 
   const updateVariable = (index: number, key: string, value: string) => {
     const validKey = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/.test(key);
@@ -39,7 +41,11 @@ const VariablesEditor: React.FC<VariablesEditorProps> = ({
 
   return (
     <div className={styles.variablesEditor}>
-      <button className={styles.addVariableButton} onClick={addVariable}>
+      <button
+        type="button"
+        className={styles.addVariableButton}
+        onClick={addVariable}
+      >
         Add Variable
       </button>
       {variables.map((variable, index) => (

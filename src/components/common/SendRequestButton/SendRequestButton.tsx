@@ -1,13 +1,9 @@
 import React from "react";
 import styles from "./SendRequestButton.module.css";
 
-interface SendRequestButtonProps {
-  onClick: () => void;
-}
-
-const SendRequestButton: React.FC<SendRequestButtonProps> = ({ onClick }) => {
+const SendRequestButton: React.FC = () => {
   return (
-    <button onClick={onClick} className={styles.sendRequestButton}>
+    <button type="submit" className={styles.sendRequestButton}>
       Send Request
     </button>
   );

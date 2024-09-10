@@ -38,11 +38,6 @@ const useRequestHistory = (
     }
   };
 
-  useEffect(() => {
-    console.log("useRequestHistory triggered");
-    saveRequestToHistory();
-  }, [method, url, headers, variables, body]);
-
   return {
     saveRequestToHistory,
   };

@@ -7,22 +7,16 @@ import {
   validateHeaders,
 } from "../utils/httpRequestUtils";
 
-const useHttpRequest = () => {
+const useSendHttpRequest = (
+  method: string,
+  url: string,
+  headers: Header[],
+  body: string,
+) => {
   const [statusCode, setStatusCode] = useState<number | null>(null);
   const [responseBody, setResponseBody] = useState<string>("");
 
-  const clearResponse = () => {
-    setStatusCode(null);
-    setResponseBody("");
-    console.log("Response cleared");
-  };
-
-  const sendRequest = async (
-    method: string,
-    url: string,
-    headers: Header[],
-    body: string,
-  ): Promise<void> => {
+  const sendRequest = async (): Promise<void> => {
     console.group("HTTP Request");
     console.log("%cStarting request...", "color: green; font-weight: bold;");
 
@@ -57,7 +51,7 @@ const useHttpRequest = () => {
     }
   };
 
-  return { statusCode, responseBody, sendRequest, clearResponse };
+  return { statusCode, responseBody, sendRequest };
 };
 
-export default useHttpRequest;
+export default useSendHttpRequest;
