@@ -1,5 +1,5 @@
 import React from "react";
-import RestClientUI from "../components/RestClient/RestClientUI";
+import RestClientUI from "../components/RestClient/HttpRequestForm";
 
 const RestClientPage: React.FC = () => {
   return (

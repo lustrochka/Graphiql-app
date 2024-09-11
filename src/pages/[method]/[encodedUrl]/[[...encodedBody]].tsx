@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import RestClientUI from "../../../components/RestClient/RestClientUI";
+import RestClientUI from "../../../components/RestClient/HttpRequestForm";
 import { decodeBase64 } from "../../../utils/decodeBase64";
 
 interface RequestPageProps {
