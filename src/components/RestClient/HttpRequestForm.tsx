@@ -8,7 +8,15 @@ import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
 import useHttpRequestState from "../../hooks/useHttpRequestState";
 import useHttpRequest from "../../hooks/useHttpRequest";
 import useRequestHistory from "../../hooks/useRequestHistory";
+import useHttpRequestValidation from "../../hooks/useHttpRequestValidation";
+import { createObjectFromKeyValuePairs } from "../../utils/createObjectFromKeyValuePairs";
+import ErrorsSection from "../common/ErrorsSection/ ErrorsSection";
 import styles from "./HttpRequestForm.module.css";
+
+interface ValidationError {
+  field: string;
+  message: string;
+}
 
 interface HttpRequestFormProps {
   initialMethod: string;
@@ -49,72 +57,35 @@ const HttpRequestForm: React.FC<HttpRequestFormProps> = ({
     body,
   );
 
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<ValidationError[]>([]);
 
   useEffect(() => {
     setMethod(initialMethod);
     setUrl(initialUrl);
     setBody(initialBody);
     setHeaders(initialHeaders);
-  }, [
-    initialMethod,
-    initialUrl,
-    initialBody,
-    initialHeaders,
-    setMethod,
-    setUrl,
-    setBody,
-    setHeaders,
-  ]);
+  }, [initialMethod, initialUrl, initialBody, initialHeaders]);
 
-  useEffect(() => {
-    clearResponse();
-  }, [method, url, headers, body, variables]);
+  const validationErrors = useHttpRequestValidation(
+    url,
+    headers,
+    variables,
+    body,
+    isMethodWithBody,
+  );
 
   const handleSendRequest = useCallback(async () => {
-    const validationErrors: string[] = [];
-
-    if (!url) {
-      validationErrors.push("URL не должен быть пустым.");
-    }
-
-    if (headers.some((header) => !header.key)) {
-      validationErrors.push("Заголовки не должны содержать пустые ключи.");
-    }
-
-    if (isMethodWithBody && body) {
-      try {
-        JSON.parse(body);
-      } catch (error) {
-        validationErrors.push("Некорректный JSON в теле запроса.");
-      }
-    }
-
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     setErrors([]);
-
     let requestBody = body;
 
     if (method === "POST") {
-      const headersObject = headers.reduce(
-        (acc, { key, value }) => {
-          acc[key] = value;
-          return acc;
-        },
-        {} as Record<string, string>,
-      );
-
-      const variablesObject = variables.reduce(
-        (acc, { key, value }) => {
-          acc[key] = value;
-          return acc;
-        },
-        {} as Record<string, string>,
-      );
+      const headersObject = createObjectFromKeyValuePairs(headers);
+      const variablesObject = createObjectFromKeyValuePairs(variables);
 
       const combinedBody = {
         body: body ? JSON.parse(body) : {},
@@ -126,10 +97,7 @@ const HttpRequestForm: React.FC<HttpRequestFormProps> = ({
     }
 
     await sendRequest(method, url, headers, requestBody);
-
-    if (!validationErrors.length) {
-      saveRequestToHistory();
-    }
+    saveRequestToHistory();
   }, [
     method,
     url,
@@ -139,6 +107,7 @@ const HttpRequestForm: React.FC<HttpRequestFormProps> = ({
     isMethodWithBody,
     sendRequest,
     saveRequestToHistory,
+    validationErrors,
   ]);
 
   return (
@@ -157,21 +126,12 @@ const HttpRequestForm: React.FC<HttpRequestFormProps> = ({
         handleUserInteraction={handleUserInteraction}
         updateBrowserUrl={updateBrowserUrl}
       />
-      <VariablesEditor variables={variables} setVariables={setVariables} />
+
       <HeadersEditor headers={headers} setHeaders={setHeaders} />
+      <VariablesEditor variables={variables} setVariables={setVariables} />
       {isMethodWithBody && <BodyEditor body={body} setBody={setBody} />}
 
-      {errors.length > 0 && (
-        <div className={styles.errorContainer}>
-          <ul>
-            {errors.map((error, index) => (
-              <li key={index} className={styles.errorMessage}>
-                {error}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <ErrorsSection errors={errors} />
 
       <SendRequestButton />
       <ResponseSection
