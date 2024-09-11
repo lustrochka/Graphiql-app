@@ -6,3 +6,8 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.methodSelector.active {
+  border-color: #0070f3;
+  background-color: #e6f7ff;
+}

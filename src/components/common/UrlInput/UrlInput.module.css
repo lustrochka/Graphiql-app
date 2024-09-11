@@ -6,3 +6,18 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.urlInput.active {
+  border-color: #0070f3;
+  background-color: #e6f7ff;
+}
+
+.urlInput.error {
+  border-color: red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}

@@ -1,0 +1,27 @@
+.info {
+  max-width: 600px;
+  margin-inline: auto;
+  margin-top: var(--sp-lg);
+  padding: var(--sp-md);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--br-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.link {
+  font-weight: var(--fw-bold);
+}
+
+.link:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+.info h3 {
+  margin-top: var(--sp-sm);
+  margin-bottom: var(--sp-sm);
+}
+
+.info span {
+  color: var(--error-red);
+}
