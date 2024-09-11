@@ -1,12 +1,27 @@
 import { useRouter } from "next/router";
 import HeadersEditor from "../common/HeadersEditor/HeadersEditor";
 import { useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Header } from "../common/HeadersEditor/HeadersEditor";
 
-const HeadersWrapper: React.FC = () => {
+interface HeadersWrapperProps {
+  searchQuery: { [key: string]: string };
+}
+
+const HeadersWrapper: React.FC<HeadersWrapperProps> = ({ searchQuery }) => {
   const { setValue } = useFormContext();
   const router = useRouter();
-  const [headers, setHeaders] = useState([]);
+  const [headers, setHeaders] = useState<Header[]>([]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const decodedHeaders = Object.entries(searchQuery).map(([key, value]) => {
+        return { key: key, value: decodeURIComponent(value) };
+      });
+      setHeaders(decodedHeaders);
+      setFormHeaders(decodedHeaders);
+    }
+  }, [searchQuery]);
 
   const handleHeaders = (headers) => {
     setHeaders(headers);

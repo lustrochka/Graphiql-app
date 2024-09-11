@@ -26,7 +26,6 @@ const GraphiQLClient: React.FC = () => {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
     getGraphql(data).then((res) => {
       if (res.jsonError) setJsonError(res.jsonError);
       if (res.status) setStatus(res.status);

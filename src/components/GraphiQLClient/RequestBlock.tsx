@@ -6,15 +6,18 @@ import HeadersWrapper from "./HeadersWrapper";
 import SDLInput from "./SdlInput";
 import { useRouter } from "next/router";
 import { decodeBase64 } from "../../utils/decodeBase64";
-import { useEffect } from "react";
+import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
+import { useEffect, useState } from "react";
 
 const RequestBlock: React.FC = () => {
   const { setValue } = useFormContext();
+  const [searchQuery, setSearchQuery] = useState({});
 
   const router = useRouter();
   const { slug, ...queryParams } = router.query;
 
   useEffect(() => {
+    console.log(queryParams);
     if (slug) {
       if (slug[0] && slug[0] !== "[[...slug]]") {
         setValue("url", decodeBase64(slug[0]));
@@ -27,7 +30,7 @@ const RequestBlock: React.FC = () => {
     }
 
     if (queryParams) {
-      setValue("headers", decodeURIComponent(JSON.stringify(queryParams)));
+      setSearchQuery(queryParams);
     }
   }, [router.isReady]);
 
@@ -37,8 +40,8 @@ const RequestBlock: React.FC = () => {
       <SDLInput />
       <BodyEditor />
       <VariablesEditor />
-      <HeadersWrapper />
-      <button type="submit">Send</button>
+      <HeadersWrapper searchQuery={searchQuery} />
+      <SendRequestButton />
     </>
   );
 };
