@@ -18,8 +18,8 @@ export function useChangeURL() {
     );
 
     const newURL = queryParams
-      ? `/graphql/${endpoint}/${body}?${queryParams}`
-      : `/graphql/${endpoint}/${body}`;
+      ? `/graphiql/${endpoint}/${body}?${queryParams}`
+      : `/graphiql/${endpoint}/${body}`;
 
     router.replace({}, newURL, { shallow: true });
   };

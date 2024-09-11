@@ -1,15 +1,15 @@
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import UrlBlock from "./UrlBlock";
 import BodyEditor from "./BodyEditor";
 import VariablesEditor from "./VariablesEditor";
-import HeadersEditor from "./HeadersEditor";
+import HeadersWrapper from "./HeadersWrapper";
+import SDLInput from "./SdlInput";
 import { useRouter } from "next/router";
 import { decodeBase64 } from "../../utils/decodeBase64";
 import { useEffect } from "react";
 
 const RequestBlock: React.FC = () => {
-  const { control, setValue } = useFormContext();
-  const DEFAULT_URL = "https://rickandmortyapi.com/graphql";
+  const { setValue } = useFormContext();
 
   const router = useRouter();
   const { slug, ...queryParams } = router.query;
@@ -34,16 +34,10 @@ const RequestBlock: React.FC = () => {
   return (
     <>
       <UrlBlock />
-      <label htmlFor="sdl">SDL URL</label>
-      <Controller
-        name="sdl"
-        control={control}
-        defaultValue={`${DEFAULT_URL}?sdl`}
-        render={({ field }) => <input type="text" {...field} />}
-      />
+      <SDLInput />
       <BodyEditor />
       <VariablesEditor />
-      <HeadersEditor />
+      <HeadersWrapper />
       <button type="submit">Send</button>
     </>
   );

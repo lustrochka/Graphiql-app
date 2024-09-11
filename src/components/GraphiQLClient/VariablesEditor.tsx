@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { useChangeURL } from "../../hooks/changeURL";
+import { useChangeURL } from "../../hooks/useChangeURL";
 
 const VariablesEditor: React.FC = () => {
   const { control, getValues } = useFormContext();

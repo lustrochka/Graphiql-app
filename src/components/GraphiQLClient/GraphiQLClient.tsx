@@ -5,7 +5,7 @@ import DocsBlock from "./DocsBlock";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import getGraphql from "../../api/getGraphql";
 import { getGraphqlDocs } from "../../api/getGraphqlDocs";
-import { useRouter } from "next/router";
+import { Header } from "../common/HeadersEditor/HeadersEditor";
 import styles from "./GraphiQLClient.module.css";
 
 type FormData = {
@@ -13,27 +13,20 @@ type FormData = {
   sdl: string;
   query: string;
   variables: string;
-  headers: string;
+  headers: Header[];
 };
 
-const GraphQLClient: React.FC = () => {
+const GraphiQLClient: React.FC = () => {
   const [jsonError, setJsonError] = useState("");
   const [status, setStatus] = useState(null);
   const [response, setResponse] = useState("");
   const [docs, setDocs] = useState("");
 
   const methods = useForm<FormData>();
-  const { watch, setValue, handleSubmit } = methods;
-
-  const url = watch("url");
-
-  useEffect(() => {
-    if (url) {
-      setValue("sdl", `${url}?sdl`);
-    }
-  }, [url]);
+  const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
     getGraphql(data).then((res) => {
       if (res.jsonError) setJsonError(res.jsonError);
       if (res.status) setStatus(res.status);
@@ -56,4 +49,4 @@ const GraphQLClient: React.FC = () => {
   );
 };
 
-export default GraphQLClient;
+export default GraphiQLClient;
