@@ -1,12 +1,12 @@
 import withPrivateRoute from "../hoc/withPrivateRoute";
 import React from "react";
-import RestClientUI from "../components/RestClient/RestClientUI";
+import HttpRequestForm from "../components/RestClient/HttpRequestForm";
 
 const RestClientPage: React.FC = () => {
   return (
     <main>
       <h1>REST Client</h1>
-      <RestClientUI
+      <HttpRequestForm
         initialMethod="GET"
         initialUrl=""
         initialBody=""
