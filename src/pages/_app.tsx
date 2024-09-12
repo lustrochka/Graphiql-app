@@ -5,11 +5,13 @@ import Footer from "../components/Footer/Footer";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <main>
+    <div className="container">
       <Header />
-      <Component {...pageProps} />
+      <main className="content">
+        <Component {...pageProps} />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 };
 
