@@ -1,6 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import UrlBlock from "./UrlBlock";
-import BodyEditor from "./BodyEditor";
+import UrlWrapper from "./UrlWrapper";
 import VariablesWrapper from "./VariablesWrapper";
 import HeadersWrapper from "./HeadersWrapper";
 import BodyWrapper from "./BodyWrapper";
@@ -11,10 +10,10 @@ import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
 import { useEffect, useState } from "react";
 
 const RequestBlock: React.FC = () => {
-  const { setValue } = useFormContext();
   const [searchQuery, setSearchQuery] = useState({});
   const [variables, setVariables] = useState({});
   const [query, setQuery] = useState("");
+  const [url, setUrl] = useState("");
 
   const router = useRouter();
   const { slug, ...queryParams } = router.query;
@@ -22,7 +21,7 @@ const RequestBlock: React.FC = () => {
   useEffect(() => {
     if (slug) {
       if (slug[0] && slug[0] !== "[[...slug]]") {
-        setValue("url", decodeBase64(slug[0]));
+        setUrl(decodeBase64(slug[0]));
       }
       if (slug[1] && slug[1] !== "[[...slug]]") {
         const body = JSON.parse(decodeBase64(slug[1]));
@@ -38,7 +37,7 @@ const RequestBlock: React.FC = () => {
 
   return (
     <>
-      <UrlBlock />
+      <UrlWrapper value={url} />
       <SDLInput />
       <BodyWrapper value={query} />
       <VariablesWrapper value={variables} />

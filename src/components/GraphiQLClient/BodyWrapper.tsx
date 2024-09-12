@@ -13,7 +13,6 @@ const BodyWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
   const { changeURL } = useChangeURL();
 
   useEffect(() => {
-    console.log(value);
     if (value) {
       setBody(value);
       setFormBody(value);
