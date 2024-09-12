@@ -3,6 +3,7 @@ import UrlBlock from "./UrlBlock";
 import BodyEditor from "./BodyEditor";
 import VariablesWrapper from "./VariablesWrapper";
 import HeadersWrapper from "./HeadersWrapper";
+import BodyWrapper from "./BodyWrapper";
 import SDLInput from "./SdlInput";
 import { useRouter } from "next/router";
 import { decodeBase64 } from "../../utils/decodeBase64";
@@ -13,6 +14,7 @@ const RequestBlock: React.FC = () => {
   const { setValue } = useFormContext();
   const [searchQuery, setSearchQuery] = useState({});
   const [variables, setVariables] = useState({});
+  const [query, setQuery] = useState("");
 
   const router = useRouter();
   const { slug, ...queryParams } = router.query;
@@ -24,7 +26,7 @@ const RequestBlock: React.FC = () => {
       }
       if (slug[1] && slug[1] !== "[[...slug]]") {
         const body = JSON.parse(decodeBase64(slug[1]));
-        if (body.query) setValue("query", body.query);
+        if (body.query) setQuery(body.query);
         if (body.variables) setVariables(body.variables);
       }
     }
@@ -38,7 +40,7 @@ const RequestBlock: React.FC = () => {
     <>
       <UrlBlock />
       <SDLInput />
-      <BodyEditor />
+      <BodyWrapper value={query} />
       <VariablesWrapper value={variables} />
       <HeadersWrapper searchQuery={searchQuery} />
       <SendRequestButton />
