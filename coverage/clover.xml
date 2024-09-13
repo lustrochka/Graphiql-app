@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726161941263" clover="3.2.0">
-  <project timestamp="1726161941263" name="All files">
-    <metrics statements="512" coveredstatements="14" conditionals="162" coveredconditionals="4" methods="163" coveredmethods="3" elements="837" coveredelements="21" complexity="0" loc="512" ncloc="512" packages="22" files="49" classes="49"/>
+<coverage generated="1726219206485" clover="3.2.0">
+  <project timestamp="1726219206485" name="All files">
+    <metrics statements="519" coveredstatements="20" conditionals="162" coveredconditionals="3" methods="167" coveredmethods="10" elements="848" coveredelements="33" complexity="0" loc="519" ncloc="519" packages="22" files="50" classes="50"/>
     <package name="api">
       <metrics statements="17" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="getGraphql.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/api/getGraphql.ts">
@@ -293,27 +293,27 @@
       </file>
     </package>
     <package name="components.common.ResponseSection">
-      <metrics statements="18" coveredstatements="14" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="3"/>
+      <metrics statements="18" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="ResponseSection.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/components/common/ResponseSection/ResponseSection.tsx">
-        <metrics statements="18" coveredstatements="14" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="3"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="15" count="6" type="stmt"/>
-        <line num="16" count="6" type="stmt"/>
-        <line num="17" count="6" type="stmt"/>
-        <line num="18" count="6" type="stmt"/>
-        <line num="21" count="6" type="stmt"/>
+        <metrics statements="18" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="30" count="6" type="stmt"/>
-        <line num="31" count="5" type="stmt"/>
-        <line num="32" count="5" type="stmt"/>
-        <line num="33" count="5" type="stmt"/>
-        <line num="34" count="4" type="stmt"/>
-        <line num="35" count="4" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="41" count="6" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
       </file>
     </package>
     <package name="components.common.SendRequestButton">
@@ -337,29 +337,29 @@
       </file>
     </package>
     <package name="components.common.VariablesEditor">
-      <metrics statements="20" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="10" coveredmethods="0"/>
+      <metrics statements="20" coveredstatements="20" conditionals="4" coveredconditionals="3" methods="10" coveredmethods="10"/>
       <file name="VariablesEditor.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/components/common/VariablesEditor/VariablesEditor.tsx">
-        <metrics statements="20" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="10" coveredmethods="0"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
+        <metrics statements="20" coveredstatements="20" conditionals="4" coveredconditionals="3" methods="10" coveredmethods="10"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="9" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="9" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="26" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="9" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="42" count="9" type="stmt"/>
+        <line num="52" count="8" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
       </file>
     </package>
     <package name="hoc">
@@ -597,7 +597,17 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="34" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="12" coveredmethods="0"/>
+      <metrics statements="41" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="16" coveredmethods="0"/>
+      <file name="404.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/404.tsx">
+        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+      </file>
       <file name="_app.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/_app.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
@@ -620,8 +630,8 @@
         <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
       </file>
       <file name="index.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/index.tsx">
         <metrics statements="13" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="4" coveredmethods="0"/>

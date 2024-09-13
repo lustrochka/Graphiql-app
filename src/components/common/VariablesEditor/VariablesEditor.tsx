@@ -16,7 +16,7 @@ const VariablesEditor: React.FC<VariablesEditorProps> = ({
   setVariables,
 }) => {
   const addVariable = (e: React.MouseEvent) => {
-    e.preventDefault(); // Остановка отправки формы
+    e.preventDefault();
     setVariables([...variables, { key: "", value: "" }]);
   };
 
