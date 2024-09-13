@@ -32,7 +32,7 @@ const WelcomePage: React.FC = () => {
 
   return (
     <>
-      <main className={styles.welcomePage}>
+      <div className={styles.welcomePage}>
         <h1>{user ? `Welcome Back!` : "Welcome!"}</h1>
         <nav>
           <ul className={styles.primaryLinks}>
@@ -61,7 +61,7 @@ const WelcomePage: React.FC = () => {
             </ul>
           )}
         </nav>
-      </main>
+      </div>
       <Info />
     </>
   );
