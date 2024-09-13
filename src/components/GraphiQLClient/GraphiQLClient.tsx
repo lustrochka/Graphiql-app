@@ -6,9 +6,10 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import getGraphql from "../../api/getGraphql";
 import { getGraphqlDocs } from "../../api/getGraphqlDocs";
 import { Header } from "../common/HeadersEditor/HeadersEditor";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import styles from "./GraphiQLClient.module.css";
 
-type FormData = {
+export type FormData = {
   url: string;
   sdl: string;
   query: string;
@@ -25,7 +26,10 @@ const GraphiQLClient: React.FC = () => {
   const methods = useForm<FormData>();
   const { handleSubmit } = methods;
 
+  const { saveToStorage } = useLocalStorage();
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    saveToStorage(data);
     getGraphql(data).then((res) => {
       if (res.status) setStatus(res.status);
       if (res.response) setResponse(res.response);

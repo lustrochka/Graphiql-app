@@ -6,7 +6,6 @@ const HistoryPage: React.FC = () => {
   return (
     <main>
       <History />
-      <History />
     </main>
   );
 };
