@@ -1,6 +1,18 @@
 import axios from "axios";
 
-export default async function getGraphql({ url, query, variables, headers }) {
+interface GraphqlRequest {
+  url: string;
+  query: string;
+  variables?: string;
+  headers?: string;
+}
+
+export default async function getGraphql({
+  url,
+  query,
+  variables,
+  headers,
+}: GraphqlRequest) {
   let parsedVars;
   let parsedHeaders;
   try {
@@ -35,7 +47,14 @@ export default async function getGraphql({ url, query, variables, headers }) {
         status: result.status.toString(),
       };
     }
-  } catch (error) {
-    return { response: error, status: error.response };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        response: error.message,
+        status: error.response.status.toString(),
+      };
+    } else {
+      return { response: "An unknown error occurred", status: "500" };
+    }
   }
 }
