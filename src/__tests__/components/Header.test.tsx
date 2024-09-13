@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { render, screen, fireEvent } from "@testing-library/react";
 import Header from "../../components/Header/Header";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
