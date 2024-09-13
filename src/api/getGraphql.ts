@@ -1,25 +1,29 @@
 import axios from "axios";
 
 export default async function getGraphql({ url, query, variables, headers }) {
-  let parsedVars;
-  let parsedHeaders;
-  try {
-    parsedVars = JSON.parse(variables || "{}");
-    parsedHeaders = JSON.parse(headers || "{}");
-  } catch {
-    return { jsonError: "Variables and headers should be in JSON format" };
-  }
+  const headersObject = {};
+  const variablesObject = {};
+  headers.forEach(({ key, value }) => {
+    if (key) {
+      headersObject[key] = value;
+    }
+  });
+  variables.forEach(({ key, value }) => {
+    if (key) {
+      variablesObject[key] = value;
+    }
+  });
   try {
     const result = await axios.post(
       url,
       {
         query,
-        variables: parsedVars,
+        variables: variablesObject,
       },
       {
         headers: {
           "Content-Type": "application/json",
-          ...parsedHeaders,
+          ...headersObject,
         },
       },
     );
@@ -27,12 +31,12 @@ export default async function getGraphql({ url, query, variables, headers }) {
     if (result.data.errors) {
       return {
         response: JSON.stringify(result.data.errors[0].message),
-        status: result.status.toString(),
+        status: result.status,
       };
     } else {
       return {
         response: JSON.stringify(result.data),
-        status: result.status.toString(),
+        status: result.status,
       };
     }
   } catch (error) {

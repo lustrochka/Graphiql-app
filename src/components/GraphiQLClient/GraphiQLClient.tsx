@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import RequestBlock from "./RequestBlock";
-import ResponseBlock from "./ResponseBlock";
+import ResponseSection from "../common/ResponseSection/ResponseSection";
 import DocsBlock from "./DocsBlock";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import getGraphql from "../../api/getGraphql";
 import { getGraphqlDocs } from "../../api/getGraphqlDocs";
+import { Header } from "../common/HeadersEditor/HeadersEditor";
 import styles from "./GraphiQLClient.module.css";
 
 type FormData = {
@@ -12,29 +13,20 @@ type FormData = {
   sdl: string;
   query: string;
   variables: string;
-  headers: string;
+  headers: Header[];
 };
 
-const GraphQLClient: React.FC = () => {
+const GraphiQLClient: React.FC = () => {
   const [jsonError, setJsonError] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(null);
   const [response, setResponse] = useState("");
   const [docs, setDocs] = useState("");
 
   const methods = useForm<FormData>();
-  const { watch, setValue, handleSubmit } = methods;
-
-  const url = watch("url");
-
-  useEffect(() => {
-    if (url) {
-      setValue("sdl", `${url}?sdl`);
-    }
-  }, [url, setValue]);
+  const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     getGraphql(data).then((res) => {
-      if (res.jsonError) setJsonError(res.jsonError);
       if (res.status) setStatus(res.status);
       if (res.response) setResponse(res.response);
     });
@@ -48,11 +40,11 @@ const GraphQLClient: React.FC = () => {
       <form className={styles.graphql} onSubmit={handleSubmit(onSubmit)}>
         <RequestBlock />
         <p>{jsonError}</p>
-        <ResponseBlock {...{ response, status, docs }} />
+        <ResponseSection statusCode={status} responseBody={response} />
         <DocsBlock docs={docs} />
       </form>
     </FormProvider>
   );
 };
 
-export default GraphQLClient;
+export default GraphiQLClient;

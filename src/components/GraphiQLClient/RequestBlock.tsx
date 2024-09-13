@@ -1,55 +1,54 @@
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+import UrlWrapper from "./UrlWrapper";
+import VariablesWrapper from "./VariablesWrapper";
+import HeadersWrapper from "./HeadersWrapper";
+import BodyWrapper from "./BodyWrapper";
+import SDLInput from "./SdlInput";
+import { useRouter } from "next/router";
+import { decodeBase64 } from "../../utils/decodeBase64";
+import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
+import { useEffect, useState } from "react";
+import styles from "./GraphiQLClient.module.css";
 
 const RequestBlock: React.FC = () => {
-  const { control } = useFormContext();
-  const DEFAULT_URL = "https://rickandmortyapi.com/graphql";
-  const DEFAULT_BODY = `
-    query GetCharacter($id: ID!) {
-      character(id: $id) {
-        name
-        species
+  const [searchQuery, setSearchQuery] = useState({});
+  const [variables, setVariables] = useState({});
+  const [query, setQuery] = useState("");
+  const [url, setUrl] = useState("");
+
+  const router = useRouter();
+  const { slug, ...queryParams } = router.query;
+
+  useEffect(() => {
+    if (slug) {
+      if (slug[0] && slug[0] !== "[[...slug]]") {
+        setUrl(decodeBase64(slug[0]));
+      }
+      if (slug[1] && slug[1] !== "[[...slug]]") {
+        const body = JSON.parse(decodeBase64(slug[1]));
+        if (body.query) setQuery(body.query);
+        if (body.variables) setVariables(body.variables);
       }
     }
-    `;
-  const DEFAULT_VARIABLES = `{"id": 1}`;
+
+    if (queryParams) {
+      setSearchQuery(queryParams);
+    }
+  }, [router.isReady]);
 
   return (
-    <div>
-      <label htmlFor="url">url</label>
-      <Controller
-        name="url"
-        control={control}
-        defaultValue={DEFAULT_URL}
-        render={({ field }) => <input type="text" {...field} />}
-      />
-      <label htmlFor="sdl">SDL URL</label>
-      <Controller
-        name="sdl"
-        control={control}
-        defaultValue={`${DEFAULT_URL}?sdl`}
-        render={({ field }) => <input type="text" {...field} />}
-      />
-      <label htmlFor="query">request</label>
-      <Controller
-        name="query"
-        control={control}
-        defaultValue={DEFAULT_BODY}
-        render={({ field }) => <textarea {...field} />}
-      />
-      <label htmlFor="variables">variables</label>
-      <Controller
-        name="variables"
-        control={control}
-        defaultValue={DEFAULT_VARIABLES}
-        render={({ field }) => <textarea {...field} />}
-      />
-      <label htmlFor="headers">variables</label>
-      <Controller
-        name="headers"
-        control={control}
-        render={({ field }) => <textarea {...field} />}
-      />
-      <button type="submit">Send</button>
+    <div className={styles.requestBlock}>
+      <div className={styles.urlWrapper}>
+        <div>
+          <label htmlFor="url">URL</label>
+          <UrlWrapper value={url} />
+        </div>
+        <SDLInput />
+      </div>
+      <BodyWrapper value={query} />
+      <VariablesWrapper value={variables} />
+      <HeadersWrapper searchQuery={searchQuery} />
+      <SendRequestButton />
     </div>
   );
 };
