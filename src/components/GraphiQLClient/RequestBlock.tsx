@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { decodeBase64 } from "../../utils/decodeBase64";
 import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
 import { useEffect, useState } from "react";
+import styles from "./GraphiQLClient.module.css";
 
 const RequestBlock: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState({});
@@ -36,14 +37,19 @@ const RequestBlock: React.FC = () => {
   }, [router.isReady]);
 
   return (
-    <>
-      <UrlWrapper value={url} />
-      <SDLInput />
+    <div className={styles.requestBlock}>
+      <div className={styles.urlWrapper}>
+        <div>
+          <label htmlFor="url">URL</label>
+          <UrlWrapper value={url} />
+        </div>
+        <SDLInput />
+      </div>
       <BodyWrapper value={query} />
       <VariablesWrapper value={variables} />
       <HeadersWrapper searchQuery={searchQuery} />
       <SendRequestButton />
-    </>
+    </div>
   );
 };
 

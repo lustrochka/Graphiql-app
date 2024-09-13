@@ -1,6 +1,25 @@
 .graphql {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 90%;
   margin: 0 auto;
+  background-color: #f4f4f4;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 1000px;
+}
+
+.urlWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.requestBlock {
+  margin-bottom: 25px;
+}
+
+@media (max-width: 600px) {
+  .urlWrapper {
+    display: block;
+  }
 }

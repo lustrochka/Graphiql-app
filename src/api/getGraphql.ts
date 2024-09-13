@@ -18,7 +18,7 @@ export default async function getGraphql({ url, query, variables, headers }) {
       url,
       {
         query,
-        variables,
+        variables: variablesObject,
       },
       {
         headers: {
