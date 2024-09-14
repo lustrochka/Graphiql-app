@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726351969719" clover="3.2.0">
-  <project timestamp="1726351969719" name="All files">
-    <metrics statements="651" coveredstatements="7" conditionals="222" coveredconditionals="0" methods="207" coveredmethods="4" elements="1080" coveredelements="11" complexity="0" loc="651" ncloc="651" packages="23" files="57" classes="57"/>
+<coverage generated="1726353803090" clover="3.2.0">
+  <project timestamp="1726353803091" name="All files">
+    <metrics statements="651" coveredstatements="2" conditionals="222" coveredconditionals="0" methods="207" coveredmethods="1" elements="1080" coveredelements="3" complexity="0" loc="651" ncloc="651" packages="23" files="57" classes="57"/>
     <package name="api">
       <metrics statements="23" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="getGraphql.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/api/getGraphql.ts">
@@ -747,21 +747,21 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="37" coveredstatements="7" conditionals="10" coveredconditionals="0" methods="15" coveredmethods="4"/>
+      <metrics statements="37" coveredstatements="2" conditionals="10" coveredconditionals="0" methods="15" coveredmethods="1"/>
       <file name="404.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/404.tsx">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
-      </file>
-      <file name="_app.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/_app.tsx">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+      </file>
+      <file name="_app.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/_app.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
       <file name="_document.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/pages/_document.tsx">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
