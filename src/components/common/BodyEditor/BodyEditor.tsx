@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
 import styles from "./BodyEditor.module.css";
 
 interface BodyEditorProps {
@@ -13,8 +15,10 @@ const BodyEditor: React.FC<BodyEditorProps> = ({ body, setBody }) => {
       const prettyJson = JSON.stringify(parsedJson, null, 2);
       setBody(prettyJson);
     } catch (error) {
-      console.error("Invalid JSON format:", error);
-    }
+      toast.error("Invalid JSON format. Please check your input.", {
+        toastId: "json-error",
+      });  
+      }
   };
 
   return (

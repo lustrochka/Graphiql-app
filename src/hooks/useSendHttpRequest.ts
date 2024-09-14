@@ -17,20 +17,15 @@ const useSendHttpRequest = (
   const [responseBody, setResponseBody] = useState<string>("");
 
   const sendRequest = async (): Promise<void> => {
-    console.group("HTTP Request");
-    console.log("%cStarting request...", "color: green; font-weight: bold;");
-
     if (!isValidUrl(url)) {
       setStatusCode(400);
       setResponseBody("Invalid URL. Please enter a valid HTTP or HTTPS URL.");
-      console.groupEnd();
       return;
     }
 
     if (!validateHeaders(headers)) {
       setStatusCode(400);
       setResponseBody("Invalid headers.");
-      console.groupEnd();
       return;
     }
 
@@ -46,8 +41,6 @@ const useSendHttpRequest = (
         error instanceof Error ? error.message : "Unknown error";
       setStatusCode(500);
       setResponseBody(errorMessage);
-    } finally {
-      console.groupEnd();
     }
   };
 
