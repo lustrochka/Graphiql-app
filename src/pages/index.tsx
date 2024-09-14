@@ -53,7 +53,7 @@ const WelcomePage: React.FC = () => {
                 <Link href="/restclient">REST Client</Link>
               </li>
               <li>
-                <Link href="/graphiql">GraphiQL Client</Link>
+                <Link href="/graphql">GraphiQL Client</Link>
               </li>
               <li>
                 <Link href="/history">History</Link>

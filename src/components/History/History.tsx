@@ -9,6 +9,7 @@ interface RequestData {
   variables: { key: string; value: string }[];
   body: string | null;
   time: string;
+  path?: string;
 }
 
 const History: React.FC = () => {
@@ -29,14 +30,19 @@ const History: React.FC = () => {
     const route = `/${request.method}/${encodedUrl}${
       encodedBody ? `/${encodedBody}` : ""
     }`;
+    console.log(request.body);
     router.push(route);
+  };
+
+  const handleGraphqlClick = (request: RequestData) => {
+    if (request.path) router.push(request.path);
   };
 
   const restRequests = history.filter((request) =>
     ["GET", "POST", "PUT", "DELETE"].includes(request.method),
   );
   const graphqlRequests = history.filter(
-    (request) => request.method === "GRAPHQL",
+    (request) => request.method === "graphql",
   );
 
   return (
@@ -54,7 +60,7 @@ const History: React.FC = () => {
           </button>
           <button
             className={styles.clientButton}
-            onClick={() => router.push("/graphiql")}
+            onClick={() => router.push("/graphql")}
           >
             GraphiQL Client
           </button>
@@ -106,7 +112,7 @@ const History: React.FC = () => {
                   {graphqlRequests.map((request, index) => (
                     <tr
                       key={index}
-                      onClick={() => handleRequestClick(request)}
+                      onClick={() => handleGraphqlClick(request)}
                       className={styles.historyRow}
                     >
                       <td>{request.method}</td>
