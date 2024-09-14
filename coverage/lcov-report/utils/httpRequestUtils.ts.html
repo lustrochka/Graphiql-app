@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17.39% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/23</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17.39% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/23</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
@@ -117,28 +117,10 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,6 +128,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,7 +158,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -169,7 +169,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Header } from "../components/common/HeadersEditor/HeadersEditor";
 &nbsp;
-export const isValidUrl = <span class="fstat-no" title="function not covered" >(u</span>rl: string): boolean =&gt; {
+export const isValidUrl = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(u</span>rl: string): boolean =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const parsedUrl = <span class="cstat-no" title="statement not covered" >new URL(url);</span>
 <span class="cstat-no" title="statement not covered" >    return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";</span>
@@ -178,7 +178,7 @@ export const isValidUrl = <span class="fstat-no" title="function not covered" >(
   }
 };
 &nbsp;
-export const validateHeaders = <span class="fstat-no" title="function not covered" >(h</span>eaders: Header[]): boolean =&gt; {
+export const validateHeaders = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(h</span>eaders: Header[]): boolean =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  for (const header of headers) {</span>
 <span class="cstat-no" title="statement not covered" >    if (header.key.trim() === "" || /\s/.test(header.key)) {</span>
 <span class="cstat-no" title="statement not covered" >      return false;</span>
@@ -187,7 +187,7 @@ export const validateHeaders = <span class="fstat-no" title="function not covere
 <span class="cstat-no" title="statement not covered" >  return true;</span>
 };
 &nbsp;
-export const createRequestOptions = <span class="fstat-no" title="function not covered" >(</span>
+export const createRequestOptions = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>
   method: string,
   headers: Header[],
   body: string,
@@ -210,7 +210,7 @@ export const createRequestOptions = <span class="fstat-no" title="function not c
 <span class="cstat-no" title="statement not covered" >  return options;</span>
 };
 &nbsp;
-export const handleResponse = <span class="fstat-no" title="function not covered" >as</span>ync (response: Response): Promise&lt;string&gt; =&gt; {
+export const handleResponse = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (response: Response): Promise&lt;string&gt; =&gt; {</span>
   const text = <span class="cstat-no" title="statement not covered" >await response.text();</span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const json = <span class="cstat-no" title="statement not covered" >JSON.parse(text);</span>
@@ -226,7 +226,7 @@ export const handleResponse = <span class="fstat-no" title="function not covered
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-14T21:21:45.937Z
+                at 2024-09-14T21:38:43.784Z
             </div>
         <script src="../prettify.js"></script>
         <script>

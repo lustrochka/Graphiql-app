@@ -12,8 +12,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
   responseBody,
   requestBody,
 }) => {
-  useEffect(() => {
-  }, [statusCode, responseBody, requestBody]);
+  useEffect(() => {}, [statusCode, responseBody, requestBody]);
 
   const formatJson = (jsonString: string): string => {
     try {
