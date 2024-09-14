@@ -43,7 +43,6 @@ const RequestPage: React.FC<RequestPageProps> = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-
     const { method, encodedUrl, encodedBody } = context.params!;
     const url = decodeBase64(encodedUrl as string);
     const body = encodedBody
