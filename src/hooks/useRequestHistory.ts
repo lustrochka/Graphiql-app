@@ -33,8 +33,6 @@ const useRequestHistory = (
 
       history.push(requestData);
       localStorage.setItem("requestHistory", JSON.stringify(history));
-
-      console.log("Request saved to history:", requestData);
     }
   };
 

@@ -17,7 +17,6 @@ const useSendHttpRequest = (
   const [responseBody, setResponseBody] = useState<string>("");
 
   const sendRequest = async (): Promise<void> => {
-
     if (!isValidUrl(url)) {
       setStatusCode(400);
       setResponseBody("Invalid URL. Please enter a valid HTTP or HTTPS URL.");
@@ -42,7 +41,7 @@ const useSendHttpRequest = (
         error instanceof Error ? error.message : "Unknown error";
       setStatusCode(500);
       setResponseBody(errorMessage);
-    } 
+    }
   };
 
   return { statusCode, responseBody, sendRequest };
