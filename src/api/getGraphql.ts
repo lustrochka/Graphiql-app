@@ -1,8 +1,24 @@
 import axios from "axios";
+import { Variable } from "../components/common/VariablesEditor/VariablesEditor";
+import { Header } from "../components/common/HeadersEditor/HeadersEditor";
 
-export default async function getGraphql({ url, query, variables, headers }) {
-  const headersObject = {};
-  const variablesObject = {};
+interface RequestData {
+  url: string;
+  query: string;
+  variables: Variable[];
+  headers: Header[];
+}
+
+type Items = { [key: string]: string };
+
+export default async function getGraphql({
+  url,
+  query,
+  variables,
+  headers,
+}: RequestData) {
+  const headersObject: Items = {};
+  const variablesObject: Items = {};
   headers.forEach(({ key, value }) => {
     if (key) {
       headersObject[key] = value;
@@ -40,11 +56,16 @@ export default async function getGraphql({ url, query, variables, headers }) {
       };
     }
   } catch (error) {
-    return {
-      response: error.response
-        ? JSON.stringify(error.response.data)
-        : "Unknown error",
-      status: error.response ? error.response.status : 500,
-    };
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        response: JSON.stringify(error.response.data),
+        status: error.response.status,
+      };
+    } else {
+      return {
+        response: "Unknown error",
+        status: 500,
+      };
+    }
   }
 }

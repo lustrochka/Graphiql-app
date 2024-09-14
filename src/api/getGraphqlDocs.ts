@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function getGraphqlDocs(url) {
+export async function getGraphqlDocs(url: string) {
   try {
     const result = await axios.post(
       url,
