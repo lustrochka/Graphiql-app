@@ -10,7 +10,15 @@ import SendRequestButton from "../common/SendRequestButton/SendRequestButton";
 import { useEffect, useState } from "react";
 import styles from "./GraphiQLClient.module.css";
 
-const RequestBlock: React.FC = () => {
+interface RequestBlockProps {
+  urlError: string;
+  queryError: string;
+}
+
+const RequestBlock: React.FC<RequestBlockProps> = ({
+  urlError,
+  queryError,
+}) => {
   const [searchQuery, setSearchQuery] = useState({});
   const [variables, setVariables] = useState({});
   const [query, setQuery] = useState("");
@@ -40,12 +48,14 @@ const RequestBlock: React.FC = () => {
     <div className={styles.requestBlock}>
       <div className={styles.urlWrapper}>
         <div>
-          <label htmlFor="url">URL</label>
+          <label htmlFor="url">URL:</label>
           <UrlWrapper value={url} />
+          <div className={styles.errorMessage}>{urlError}</div>
         </div>
         <SDLInput />
       </div>
       <BodyWrapper value={query} />
+      <div className={styles.errorMessage}>{queryError}</div>
       <VariablesWrapper value={variables} />
       <HeadersWrapper searchQuery={searchQuery} />
       <SendRequestButton />

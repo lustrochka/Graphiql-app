@@ -13,7 +13,7 @@ export function useChangeURL() {
 
   const changeURL = ({ variables, query, url }: ChangeUrlParams) => {
     const queryParams = router.asPath.split("?")[1];
-    const endpoint = encodeBase64(url);
+    const endpoint = url ? encodeBase64(url) : encodeBase64("url");
     const variablesObject = variables.reduce((acc, { key, value }) => {
       acc[key] = value;
       return acc;

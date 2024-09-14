@@ -16,7 +16,7 @@ const SDLInput: React.FC = () => {
 
   return (
     <div>
-      <label htmlFor="sdl">SDL URL</label>
+      <label htmlFor="sdl">SDL:</label>
       <Controller
         name="sdl"
         control={control}
