@@ -2,6 +2,8 @@ import { AppProps } from "next/app";
 import "../styles/globals.css";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -11,6 +13,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Component {...pageProps} />
       </main>
       <Footer />
+      <ToastContainer />
     </div>
   );
 };
