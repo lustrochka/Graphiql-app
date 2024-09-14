@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { useEffect } from "react";
-import RestClientUI from "../../../components/RestClient/HttpRequestForm";
+import HttpRequestForm from "../../../components/RestClient/HttpRequestForm";
 import { decodeBase64 } from "../../../utils/decodeBase64";
 import { toast } from "react-toastify";
 import withPrivateRoute from "../../../hoc/withPrivateRoute";
@@ -29,10 +29,10 @@ const RequestPage: React.FC<RequestPageProps> = ({
   }, [error]);
 
   return (
-    <RestClientUI
+    <HttpRequestForm
       initialMethod={method}
       initialUrl={url}
-      initialBody={body}
+      initialBody={body || ""}
       initialHeaders={Object.entries(headers).map(([key, value], index) => ({
         key,
         value,
