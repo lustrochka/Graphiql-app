@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./ResponseSection.module.css";
 
 interface ResponseSectionProps {
@@ -12,12 +12,6 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
   responseBody,
   requestBody,
 }) => {
-  useEffect(() => {
-    console.log("ResponseSection received statusCode:", statusCode);
-    console.log("ResponseSection received responseBody:", responseBody);
-    console.log("ResponseSection received requestBody:", requestBody);
-  }, [statusCode, responseBody, requestBody]);
-
   const formatJson = (jsonString: string): string => {
     try {
       const json = JSON.parse(jsonString);

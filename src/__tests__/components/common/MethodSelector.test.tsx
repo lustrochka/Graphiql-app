@@ -1,6 +1,5 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import MethodSelector from "../../../components/common/MethodSelector/MethodSelector";
 
 describe("MethodSelector", () => {
@@ -48,7 +47,6 @@ describe("MethodSelector", () => {
     fireEvent.focus(selectElement);
     fireEvent.blur(selectElement);
 
-    // Проверяем, что updateBrowserUrl был вызван при потере фокуса
     expect(mockUpdateBrowserUrl).toHaveBeenCalled();
   });
 
