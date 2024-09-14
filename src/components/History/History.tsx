@@ -30,7 +30,6 @@ const History: React.FC = () => {
     const route = `/${request.method}/${encodedUrl}${
       encodedBody ? `/${encodedBody}` : ""
     }`;
-    console.log(request.body);
     router.push(route);
   };
 

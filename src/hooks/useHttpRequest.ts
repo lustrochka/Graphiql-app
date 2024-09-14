@@ -22,8 +22,6 @@ const useHttpRequest = () => {
     headers: Header[],
     body: string,
   ): Promise<void> => {
-   
-
     if (!isValidUrl(url)) {
       setStatusCode(400);
       setResponseBody("Invalid URL. Please enter a valid HTTP or HTTPS URL.");
