@@ -18,6 +18,17 @@
   margin-bottom: 25px;
 }
 
+.requestBlock label {
+  font-weight: bold;
+}
+
+.errorMessage {
+  height: 30px;
+  margin-top: 10px;
+  color: #f46c78;
+  padding: 8px;
+}
+
 @media (max-width: 600px) {
   .urlWrapper {
     display: block;
