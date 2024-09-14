@@ -40,6 +40,11 @@ export default async function getGraphql({ url, query, variables, headers }) {
       };
     }
   } catch (error) {
-    return { response: error, status: error.response };
+    return {
+      response: error.response
+        ? JSON.stringify(error.response.data)
+        : "Unknown error",
+      status: error.response ? error.response.status : 500,
+    };
   }
 }
