@@ -14,10 +14,14 @@ export function useChangeURL() {
   const changeURL = ({ variables, query, url }: ChangeUrlParams) => {
     const queryParams = router.asPath.split("?")[1];
     const endpoint = url ? encodeBase64(url) : encodeBase64("url");
-    const variablesObject = variables.reduce((acc, { key, value }) => {
-      acc[key] = value;
-      return acc;
-    }, {});
+
+    const variablesObject = variables.reduce<Record<string, string>>(
+      (acc, { key, value }) => {
+        acc[key] = value;
+        return acc;
+      },
+      {},
+    );
     const body = encodeBase64(
       JSON.stringify({
         query,

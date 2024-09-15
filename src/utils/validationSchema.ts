@@ -10,7 +10,7 @@ export const validationSchema = Yup.object({
     .matches(/[a-zA-Z]/, "Password must contain at least one letter")
     .matches(/[0-9]/, "Password must contain at least one digit")
     .matches(
-      /[\p{P}\p{S}]/u,
+      /[!@#$%^&*()+=._-]/,
       "Password must contain at least one special character",
     )
     .matches(/^\S*$/, "Password must not contain spaces")
