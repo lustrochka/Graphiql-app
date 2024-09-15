@@ -23,16 +23,16 @@ const Form: React.FC<VariablesWrapperProps> = ({ value }) => {
 };
 
 test("renders correct data", () => {
-  const header = "testing-header";
+  const key = "testing-header";
   const value = "testing-value";
-  const variable = { [header]: value };
+  const variable = { [key]: value };
 
   render(<Form value={variable} />);
 
   const keyInput = screen.getByPlaceholderText("Variable Key");
   const valueInput = screen.getByPlaceholderText("Variable Value");
 
-  expect(keyInput).toHaveValue(header);
+  expect(keyInput).toHaveValue(key);
   expect(valueInput).toHaveValue(value);
 });
 
