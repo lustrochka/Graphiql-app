@@ -102,8 +102,6 @@ describe("ResponseSection Component", () => {
     expect(preElement).toBeInTheDocument();
   });
 
-  // Новые тесты
-
   it("should return responseBody if parsing responseBody throws an error", () => {
     const props = {
       statusCode: 200,

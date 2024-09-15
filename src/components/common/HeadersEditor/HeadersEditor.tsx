@@ -16,7 +16,7 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({
   setHeaders,
 }) => {
   const addHeader = (e: React.MouseEvent) => {
-    e.preventDefault(); // Остановка отправки формы
+    e.preventDefault();
     setHeaders([...headers, { key: "", value: "" }]);
   };
 
