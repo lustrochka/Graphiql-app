@@ -30,7 +30,7 @@ describe("validateHeaders", () => {
   it("should return false for headers with empty or invalid keys", () => {
     const invalidHeaders: Header[] = [
       { key: "", value: "Bearer token" },
-      { key: "Invalid Key", value: "application/json" }, // содержит пробел
+      { key: "Invalid Key", value: "application/json" },
     ];
     expect(validateHeaders(invalidHeaders)).toBe(false);
   });
