@@ -18,7 +18,7 @@ describe("validationSchema", () => {
     };
 
     await expect(validationSchema.validate(invalidData)).rejects.toThrow(
-      "Please enter a valid email address"
+      "Please enter a valid email address",
     );
   });
 
@@ -29,7 +29,7 @@ describe("validationSchema", () => {
     };
 
     await expect(validationSchema.validate(invalidData)).rejects.toThrow(
-      "Password must be at least 8 characters"
+      "Password must be at least 8 characters",
     );
   });
 
@@ -40,7 +40,7 @@ describe("validationSchema", () => {
     };
 
     await expect(validationSchema.validate(invalidData)).rejects.toThrow(
-      "Password must contain at least one letter"
+      "Password must contain at least one letter",
     );
   });
 
@@ -51,7 +51,7 @@ describe("validationSchema", () => {
     };
 
     await expect(validationSchema.validate(invalidData)).rejects.toThrow(
-      "Password must contain at least one digit"
+      "Password must contain at least one digit",
     );
   });
 
@@ -62,7 +62,7 @@ describe("validationSchema", () => {
     };
 
     await expect(validationSchema.validate(invalidData)).rejects.toThrow(
-      "Password must contain at least one special character"
+      "Password must contain at least one special character",
     );
   });
 
@@ -73,7 +73,7 @@ describe("validationSchema", () => {
     };
 
     await expect(validationSchema.validate(invalidData)).rejects.toThrow(
-      "Password must not contain spaces"
+      "Password must not contain spaces",
     );
   });
 });
