@@ -10,9 +10,7 @@
     "format:fix": "prettier . --write",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
     "prepare": "husky",
-    "test": "jest --coverage",
-    "test:clearCache": "jest --clearCache",
-    "test:coverage": "jest --coverage --coverageReporters=text"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@types/react-redux": "^7.1.33",
