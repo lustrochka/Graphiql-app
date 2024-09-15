@@ -23,7 +23,7 @@ const HeadersWrapper: React.FC<HeadersWrapperProps> = ({ searchQuery }) => {
     }
   }, [searchQuery]);
 
-  const handleHeaders = (headers) => {
+  const handleHeaders = (headers: Header[]) => {
     setHeaders(headers);
     const filteredHeaders = headers.filter(({ key, value }) => key && value);
     updateUrl(filteredHeaders);
@@ -41,7 +41,8 @@ const HeadersWrapper: React.FC<HeadersWrapperProps> = ({ searchQuery }) => {
     router.replace({}, newPath, { shallow: true });
   };
 
-  const setFormHeaders = (newHeaders) => setValue("headers", newHeaders);
+  const setFormHeaders = (newHeaders: Header[]) =>
+    setValue("headers", newHeaders);
 
   return (
     <>

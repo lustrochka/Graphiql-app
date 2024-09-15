@@ -33,7 +33,11 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    if (err instanceof Error) {
+      alert(err.message);
+    } else {
+      alert("An unknown error occurred");
+    }
   }
 };
 
@@ -51,7 +55,11 @@ const registerWithEmailAndPassword = async (
     });
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    if (err instanceof Error) {
+      alert(err.message);
+    } else {
+      alert("An unknown error occurred");
+    }
   }
 };
 
