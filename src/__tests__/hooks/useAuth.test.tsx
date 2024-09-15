@@ -2,10 +2,15 @@ import { renderHook, act } from "@testing-library/react";
 import { waitFor } from "@testing-library/react";
 import useAuth from "../../hooks/useAuth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/router";
 
 jest.mock("firebase/auth", () => ({
   getAuth: jest.fn(),
   onAuthStateChanged: jest.fn(),
+}));
+
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
 }));
 
 describe("useAuth", () => {
@@ -17,6 +22,12 @@ describe("useAuth", () => {
     });
 
     onAuthStateChanged.mockImplementation(mockOnAuthStateChanged);
+
+    const mockPush = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      pathname: "/test",
+      push: mockPush,
+    });
 
     const { result } = renderHook(() => useAuth());
 
