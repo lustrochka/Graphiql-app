@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import SDLInput from "../../../components/GraphiQLClient/SdlInput";
 import { useEffect } from "react";
 
@@ -21,7 +21,7 @@ const Form: React.FC<{ value: string }> = ({ value }) => {
   );
 };
 
-test("updates sdl value when url value changing", async () => {
+test("updates sdl value when url value changing", () => {
   render(<Form value={url} />);
 
   const sdlInput = screen.getByRole("textbox") as HTMLInputElement;
@@ -29,7 +29,7 @@ test("updates sdl value when url value changing", async () => {
   expect(sdlInput.value).toBe(`${url}?sdl`);
 });
 
-test("correctly handles empty url value", async () => {
+test("correctly handles empty url value", () => {
   render(<Form value="" />);
 
   const sdlInput = screen.getByRole("textbox") as HTMLInputElement;
