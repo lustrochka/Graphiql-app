@@ -9,7 +9,7 @@ interface HeadersWrapperProps {
 
 const UrlWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
   const { setValue, getValues } = useFormContext();
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState<string>("");
   const { changeURL } = useChangeURL();
 
   useEffect(() => {
@@ -19,19 +19,19 @@ const UrlWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
     }
   }, [value]);
 
-  const handleUrl = (url) => {
+  const handleUrl = (url: string) => {
     setUrl(url);
     updateUrl(url);
     setFormUrl(url);
   };
 
-  const updateUrl = (endpoint) => {
+  const updateUrl = (endpoint: string) => {
     const query = getValues("query");
     const variables = getValues("variables");
     changeURL({ url: endpoint, query, variables });
   };
 
-  const setFormUrl = (newUrl) => setValue("url", newUrl);
+  const setFormUrl = (newUrl: string) => setValue("url", newUrl);
 
   return (
     <>

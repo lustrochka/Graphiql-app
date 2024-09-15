@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, ComponentType, JSX } from "react";
 import useAuth from "../hooks/useAuth";
 
-const withPrivateRoute = (WrappedComponent) => {
-  const ComponentWithPrivateRoute = (props) => {
+function withPrivateRoute<P>(WrappedComponent: ComponentType<P>) {
+  const ComponentWithPrivateRoute = (props: P & JSX.IntrinsicAttributes) => {
     const router = useRouter();
     const { user, loading } = useAuth();
 
@@ -23,6 +23,6 @@ const withPrivateRoute = (WrappedComponent) => {
   ComponentWithPrivateRoute.displayName = `withPrivateRoute(${WrappedComponent.displayName || WrappedComponent.name || "Component"})`;
 
   return ComponentWithPrivateRoute;
-};
+}
 
 export default withPrivateRoute;

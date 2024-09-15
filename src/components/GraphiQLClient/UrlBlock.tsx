@@ -6,7 +6,7 @@ const UrlBlock: React.FC = () => {
   const { changeURL } = useChangeURL();
   const DEFAULT_URL = "https://rickandmortyapi.com/graphql";
 
-  const updateUrl = (endpoint) => {
+  const updateUrl = (endpoint: string) => {
     const query = getValues("query");
     const variables = getValues("variables");
     changeURL({ url: endpoint, query, variables });

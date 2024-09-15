@@ -19,7 +19,7 @@ export type FormData = {
 };
 
 const GraphiQLClient: React.FC = () => {
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<number | null>(null);
   const [response, setResponse] = useState("");
   const [docs, setDocs] = useState("");
   const [urlError, setUrlError] = useState("");

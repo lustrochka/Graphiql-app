@@ -69,7 +69,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         url: "",
         body: null,
         headers: {},
-        error: error.message || "Unknown error occurred",
+        error:
+          error instanceof Error ? error.message : "Unknown error occurred",
       },
     };
   }
