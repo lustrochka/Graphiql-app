@@ -4,7 +4,7 @@ import styles from "./ResponseSection.module.css";
 interface ResponseSectionProps {
   statusCode: number | null;
   responseBody: string;
-  requestBody: string;
+  requestBody?: string;
 }
 
 const ResponseSection: React.FC<ResponseSectionProps> = ({
@@ -24,6 +24,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({
   };
 
   const combinedResponse = (): string => {
+    if (!requestBody) return responseBody;
     try {
       const parsedRequest = JSON.parse(requestBody);
       const parsedResponse = JSON.parse(responseBody);

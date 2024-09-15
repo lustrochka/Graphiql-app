@@ -9,7 +9,7 @@ interface HeadersWrapperProps {
 
 const BodyWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
   const { setValue, getValues } = useFormContext();
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState<string>("");
   const { changeURL } = useChangeURL();
 
   useEffect(() => {
@@ -19,19 +19,19 @@ const BodyWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
     }
   }, [value]);
 
-  const handleBody = (body) => {
+  const handleBody = (body: string) => {
     setBody(body);
     updateUrl(body);
     setFormBody(body);
   };
 
-  const updateUrl = (query) => {
+  const updateUrl = (query: string) => {
     const endpoint = getValues("url");
     const variables = getValues("variables");
     changeURL({ query, url: endpoint, variables });
   };
 
-  const setFormBody = (newBody) => setValue("query", newBody);
+  const setFormBody = (newBody: string) => setValue("query", newBody);
 
   return (
     <>
