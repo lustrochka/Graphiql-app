@@ -112,6 +112,7 @@ const HttpRequestForm: React.FC<HttpRequestFormProps> = ({
 
   return (
     <form
+      data-testid="http-request-form"
       onSubmit={(e) => {
         e.preventDefault();
         handleSendRequest();

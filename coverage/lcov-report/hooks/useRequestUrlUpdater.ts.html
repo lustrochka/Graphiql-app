@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,39 +107,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,39 +147,39 @@
 import { useRouter } from "next/router";
 import { Header } from "../components/common/HeadersEditor/HeadersEditor";
 &nbsp;
-const useRequestUrlUpdater = (
+const useRequestUrlUpdater = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>
   method: string,
   url: string,
   headers: Header[],
   requestBody: string,
   userInteracted: boolean,
 ) =&gt; {
-  const router = useRouter();
+  const router = <span class="cstat-no" title="statement not covered" >useRouter();</span>
 &nbsp;
-  const updateBrowserUrl = () =&gt; {
-    if (!userInteracted) return;
+  const updateBrowserUrl = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!userInteracted) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-    const encodedUrl = url ? encodeBase64(url) : <span class="branch-1 cbranch-no" title="branch not covered" >"";</span>
-    const encodedBody = requestBody !== "{}" ? encodeBase64(requestBody) : "";
+    const encodedUrl = <span class="cstat-no" title="statement not covered" >url ? encodeBase64(url) : "";</span>
+    const encodedBody = <span class="cstat-no" title="statement not covered" >requestBody !== "{}" ? encodeBase64(requestBody) : "";</span>
 &nbsp;
-    const headersQueryParams = headers
-      .filter((header) =&gt; header.key &amp;&amp; header.value)
+    const headersQueryParams = <span class="cstat-no" title="statement not covered" >headers</span>
+      .filter(<span class="fstat-no" title="function not covered" >(h</span>eader) =&gt; <span class="cstat-no" title="statement not covered" >header.key &amp;&amp; header.value)</span>
       .map(
-        (header) =&gt;
-          `${encodeURIComponent(header.key)}=${encodeURIComponent(header.value)}`,
+<span class="fstat-no" title="function not covered" >        (h</span>eader) =&gt;
+<span class="cstat-no" title="statement not covered" >          `${encodeURIComponent(header.key)}=${encodeURIComponent(header.value)}`,</span>
       )
       .join("&amp;");
 &nbsp;
-    const requestUrl = `/${method}${encodedUrl ? `/${encodedUrl}` : <span class="branch-1 cbranch-no" title="branch not covered" >""}</span>${
+    const requestUrl = <span class="cstat-no" title="statement not covered" >`/${method}${encodedUrl ? `/${encodedUrl}` : ""}${</span>
       encodedBody ? `/${encodedBody}` : ""
     }${headersQueryParams ? `?${headersQueryParams}` : ""}`;
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (window.location.pathname !== requestUrl) {
-      window.history.replaceState(null, "", requestUrl);
+<span class="cstat-no" title="statement not covered" >    if (window.location.pathname !== requestUrl) {</span>
+<span class="cstat-no" title="statement not covered" >      window.history.replaceState(null, "", requestUrl);</span>
     }
   };
 &nbsp;
-  return { updateBrowserUrl };
+<span class="cstat-no" title="statement not covered" >  return { updateBrowserUrl };</span>
 };
 &nbsp;
 export default useRequestUrlUpdater;
@@ -190,7 +190,7 @@ export default useRequestUrlUpdater;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-14T21:21:45.937Z
+                at 2024-09-15T01:40:26.850Z
             </div>
         <script src="../prettify.js"></script>
         <script>

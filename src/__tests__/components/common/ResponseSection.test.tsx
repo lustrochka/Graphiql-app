@@ -23,12 +23,11 @@ describe("ResponseSection Component", () => {
 
   it("should combine and display request and response bodies as JSON", () => {
     render(<ResponseSection {...defaultProps} />);
-    const responseElement = screen.getByText((content, element) => {
-      return (
+    const responseElement = screen.getByText(
+      (content) =>
         content.includes('"data": "test"') &&
-        content.includes('"message": "success"')
-      );
-    });
+        content.includes('"message": "success"'),
+    );
     expect(responseElement).toBeInTheDocument();
   });
 

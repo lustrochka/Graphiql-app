@@ -3,6 +3,7 @@ import { render, fireEvent } from "@testing-library/react";
 import VariablesEditor, {
   Variable,
 } from "../../../components/common/VariablesEditor/VariablesEditor";
+import { toast } from "react-toastify";
 
 describe("VariablesEditor", () => {
   let variables: Variable[];
@@ -101,8 +102,8 @@ describe("VariablesEditor", () => {
   });
 
   test("shows warning when invalid key is entered", () => {
-    const consoleWarnMock = jest
-      .spyOn(console, "warn")
+    const toastWarnMock = jest
+      .spyOn(toast, "warn")
       .mockImplementation(() => {});
 
     const { getByPlaceholderText } = render(
@@ -113,10 +114,10 @@ describe("VariablesEditor", () => {
 
     fireEvent.change(keyInput, { target: { value: "123invalid" } });
 
-    // Проверка, что консоль выдала предупреждение об ошибке
-    expect(consoleWarnMock).toHaveBeenCalledWith(
+    expect(toastWarnMock).toHaveBeenCalledWith(
       'Invalid variable key: "123invalid"',
+      expect.any(Object),
     );
-    consoleWarnMock.mockRestore();
+    toastWarnMock.mockRestore();
   });
 });
