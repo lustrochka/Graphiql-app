@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { useChangeURL } from "../../hooks/useChangeURL";
 
-interface HeadersWrapperProps {
+export interface VariablesWrapperProps {
   value: { [key: string]: string };
 }
 
@@ -12,7 +12,7 @@ interface Variable {
   value: string;
 }
 
-const VariablesWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
+const VariablesWrapper: React.FC<VariablesWrapperProps> = ({ value }) => {
   const { setValue, getValues } = useFormContext();
   const [variables, setVariables] = useState<Variable[]>([]);
   const { changeURL } = useChangeURL();

@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { Header } from "../common/HeadersEditor/HeadersEditor";
 
-interface HeadersWrapperProps {
+export interface HeadersWrapperProps {
   searchQuery: { [key: string]: string };
 }
 
