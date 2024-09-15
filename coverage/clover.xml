@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726363407738" clover="3.2.0">
-  <project timestamp="1726363407739" name="All files">
-    <metrics statements="651" coveredstatements="2" conditionals="222" coveredconditionals="0" methods="207" coveredmethods="1" elements="1080" coveredelements="3" complexity="0" loc="651" ncloc="651" packages="23" files="57" classes="57"/>
+<coverage generated="1726363657923" clover="3.2.0">
+  <project timestamp="1726363657924" name="All files">
+    <metrics statements="651" coveredstatements="23" conditionals="222" coveredconditionals="11" methods="207" coveredmethods="5" elements="1080" coveredelements="39" complexity="0" loc="651" ncloc="651" packages="23" files="57" classes="57"/>
     <package name="api">
       <metrics statements="23" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="getGraphql.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/api/getGraphql.ts">
@@ -73,11 +73,11 @@
       </file>
     </package>
     <package name="components.Footer">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="Footer.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/components/Footer/Footer.tsx">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
       </file>
     </package>
     <package name="components.GraphiQLClient">
@@ -844,7 +844,7 @@
       </file>
     </package>
     <package name="utils">
-      <metrics statements="32" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="9" coveredmethods="0"/>
+      <metrics statements="32" coveredstatements="23" conditionals="12" coveredconditionals="11" methods="9" coveredmethods="5"/>
       <file name="createObjectFromKeyValuePairs.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/utils/createObjectFromKeyValuePairs.ts">
         <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
@@ -863,30 +863,30 @@
         <line num="2" count="0" type="stmt"/>
       </file>
       <file name="httpRequestUtils.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/utils/httpRequestUtils.ts">
-        <metrics statements="23" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
+        <metrics statements="23" coveredstatements="23" conditionals="12" coveredconditionals="11" methods="5" coveredmethods="5"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="6" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="14" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="37" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
       </file>
       <file name="validationSchema.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/utils/validationSchema.ts">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

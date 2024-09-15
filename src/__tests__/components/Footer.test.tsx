@@ -16,12 +16,12 @@ describe("Footer", () => {
     expect(alexLink).toHaveAttribute("target", "_blank");
 
     const aleksandraLink = screen.getByText(
-      "Aleksandra Muraveva (@aleksandramuraveva)"
+      "Aleksandra Muraveva (@aleksandramuraveva)",
     );
     expect(aleksandraLink).toBeInTheDocument();
     expect(aleksandraLink).toHaveAttribute(
       "href",
-      "https://github.com/aleksandramuraveva"
+      "https://github.com/aleksandramuraveva",
     );
     expect(aleksandraLink).toHaveAttribute("target", "_blank");
 
@@ -29,7 +29,7 @@ describe("Footer", () => {
     expect(projectRepoLink).toBeInTheDocument();
     expect(projectRepoLink).toHaveAttribute(
       "href",
-      "https://github.com/lustrochka/Graphiql-app"
+      "https://github.com/lustrochka/Graphiql-app",
     );
     expect(projectRepoLink).toHaveAttribute("target", "_blank");
   });
