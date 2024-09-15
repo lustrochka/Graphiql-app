@@ -31,7 +31,7 @@ const SignInForm: React.FC = () => {
           <Form>
             <div>
               <label htmlFor="email">Email</label>
-              <Field name="email" type="email" />
+              <Field id="email" name="email" type="email" />
               <ErrorMessage
                 name="email"
                 component="div"
@@ -40,7 +40,7 @@ const SignInForm: React.FC = () => {
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <Field name="password" type="password" />
+              <Field id="password" name="password" type="password" />
               <ErrorMessage
                 name="password"
                 component="div"

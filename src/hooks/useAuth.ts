@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { auth } from "../lib/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 
 const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
