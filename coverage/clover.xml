@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726359373623" clover="3.2.0">
-  <project timestamp="1726359373623" name="All files">
-    <metrics statements="651" coveredstatements="6" conditionals="222" coveredconditionals="0" methods="207" coveredmethods="3" elements="1080" coveredelements="9" complexity="0" loc="651" ncloc="651" packages="23" files="57" classes="57"/>
+<coverage generated="1726361843047" clover="3.2.0">
+  <project timestamp="1726361843048" name="All files">
+    <metrics statements="651" coveredstatements="0" conditionals="222" coveredconditionals="0" methods="207" coveredmethods="0" elements="1080" coveredelements="0" complexity="0" loc="651" ncloc="651" packages="23" files="57" classes="57"/>
     <package name="api">
       <metrics statements="23" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="getGraphql.ts" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/api/getGraphql.ts">
@@ -327,7 +327,7 @@
       </file>
     </package>
     <package name="components.RestClient">
-      <metrics statements="33" coveredstatements="6" conditionals="8" coveredconditionals="0" methods="7" coveredmethods="3"/>
+      <metrics statements="33" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="7" coveredmethods="0"/>
       <file name="HttpRequestForm.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/components/RestClient/HttpRequestForm.tsx">
         <metrics statements="27" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="28" count="0" type="stmt"/>
@@ -355,17 +355,17 @@
         <line num="99" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="113" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
         <line num="117" count="0" type="stmt"/>
+        <line num="118" count="0" type="stmt"/>
       </file>
       <file name="RequestConfigSection.tsx" path="/Users/alexandr_prokopovich/Library/Mobile Documents/com~apple~CloudDocs/Documents/git/RS/Graphiql-app/src/components/RestClient/RequestConfigSection.tsx">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
+        <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
       </file>
     </package>
     <package name="components.common.BodyEditor">
