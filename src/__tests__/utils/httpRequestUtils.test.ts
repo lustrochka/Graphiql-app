@@ -1,4 +1,9 @@
-import { isValidUrl, validateHeaders, createRequestOptions, handleResponse } from "../../utils/httpRequestUtils";
+import {
+  isValidUrl,
+  validateHeaders,
+  createRequestOptions,
+  handleResponse,
+} from "../../utils/httpRequestUtils";
 import { Header } from "../../components/common/HeadersEditor/HeadersEditor";
 
 describe("isValidUrl", () => {
@@ -44,7 +49,11 @@ describe("createRequestOptions", () => {
   it("should not include body for GET and HEAD requests", () => {
     const headers: Header[] = [{ key: "Authorization", value: "Bearer token" }];
     const getRequestOptions = createRequestOptions("GET", headers, "test body");
-    const headRequestOptions = createRequestOptions("HEAD", headers, "test body");
+    const headRequestOptions = createRequestOptions(
+      "HEAD",
+      headers,
+      "test body",
+    );
 
     expect(getRequestOptions.body).toBeUndefined();
     expect(headRequestOptions.body).toBeUndefined();
