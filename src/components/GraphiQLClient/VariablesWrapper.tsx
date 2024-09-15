@@ -7,9 +7,14 @@ interface HeadersWrapperProps {
   value: { [key: string]: string };
 }
 
+interface Variable {
+  key: string;
+  value: string;
+}
+
 const VariablesWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
   const { setValue, getValues } = useFormContext();
-  const [variables, setVariables] = useState([]);
+  const [variables, setVariables] = useState<Variable[]>([]);
   const { changeURL } = useChangeURL();
 
   useEffect(() => {
@@ -22,7 +27,7 @@ const VariablesWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
     }
   }, [value]);
 
-  const handleVariables = (variables) => {
+  const handleVariables = (variables: Variable[]) => {
     setVariables(variables);
     const filteredVariables = variables.filter(
       ({ key, value }) => key && value,
@@ -31,13 +36,13 @@ const VariablesWrapper: React.FC<HeadersWrapperProps> = ({ value }) => {
     setFormVariables(filteredVariables);
   };
 
-  const updateUrl = (variables) => {
+  const updateUrl = (variables: Variable[]) => {
     const endpoint = getValues("url");
     const query = getValues("query");
     changeURL({ variables, url: endpoint, query });
   };
 
-  const setFormVariables = (newVariables) =>
+  const setFormVariables = (newVariables: Variable[]) =>
     setValue("variables", newVariables);
 
   return (
