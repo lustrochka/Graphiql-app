@@ -1,0 +1,66 @@
+.container {
+  padding: 20px;
+}
+
+.tableContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.column {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #14f111;
+  color: white;
+}
+
+.historyRow:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.historyRow td {
+  text-align: left;
+}
+
+.columnTitle {
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+.emptyHistory {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.clientButton {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #cadefc;
+  color: #65676e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clientButton:hover {
+  background-color: #fcfcd4;
+  transform: translateY(-2px);
+}

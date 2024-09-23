@@ -1,0 +1,44 @@
+.headersEditor {
+  margin-top: 1rem;
+}
+
+.addHeaderButton {
+  background-color: #cadefc;
+  color: #65676e;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-bottom: 1rem;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.addHeaderButton:hover {
+  background-color: #fcfcd4;
+  transform: translateY(-2px);
+}
+
+.addHeaderButton:active {
+  transform: translateY(0);
+}
+
+.headerEntry {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.headerInput {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
